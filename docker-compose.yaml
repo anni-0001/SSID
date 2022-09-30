@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  dev1:
+    image: ubuntu
+    ports:
+      - "2201:22"
+    volumes:
+      - /Users/annika/Documents/SSID:/purple/dev1
+    command: "sleep 10000"
+
+
+    # networks: 
+    #   - SSID1
+  dev2:
+    image: ubuntu
+    ports:
+      - "2202:22"
+    volumes:
+    - /Users/annika/Documents/SSID:/purple/dev2
+    command: "sleep 10000"
+  #   network: SSID1
+
+networks:
+  default:
+    name: SSID1
+    external: true
+
+# networks:
+#   external:
+#     name: SSID1
+  # frontend-network:
+  #   # external: true
+  #   driver: bridge
+  #   external: true
+  #   name: SSID1
+
