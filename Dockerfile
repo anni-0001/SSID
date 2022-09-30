@@ -1,45 +1,28 @@
+# ^^^^^^^^^^^^^^^^^^^^^^^^
+# ubuntu Dockerfile
 FROM ubuntu
 
-FROM ubuntu
 RUN apt update && apt install  openssh-server sudo wireshark net-tools -y
 RUN  echo 'root:password' | chpasswd
 RUN touch /home/ubuntu/hi.txt |echo "hi"> hi.txt
-# RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
 RUN  echo 'test:test' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 RUN service ssh start
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
 
+# commands to enter to activate:
+# create the containers
+    # docker build -t <imagetype> .
+    # docker build -t ubuntu .
 
-# RUN apt update && apt install  openssh-server sudo -y
-# RUN  echo 'root:password' | chpasswd
-# RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-# RUN service ssh start
-# EXPOSE 22
-# CMD ["/usr/sbin/sshd","-D"]
-
-
-# FROM ubuntu
-# # RUN apk add --update --no-cache openssh bash
-# # # RUN echo 'Accessing Docker file'
-# # CMD ["echo", "HI there"]
-# # # RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
-# # # RUN adduser -h /home/anni -s /bin/sh -D anni
-# # # RUN echo -n 'anni:abc' | chpasswd
-# # RUN mkdir /hi
-# # # RUN echo "HIII" > hi.txt
+    # docker run -dit --name <given name> -p <hostport>:<containerport> <image type>
+    # docker run -dit --name ssid-dev3 -p 2003:22 ubuntu
 
 
-# RUN apt-get update && \
-# apt-get install -y netcat ssh iputils-ping && \
-# mkdir /var/run/sshd && \
-# chmod 0755 /var/run/sshd && \
-# useradd -p $(openssl passwd -1 u2password) --create-home --shell /bin/bash --groups sudo u2
-# # CMD ["echo", "hello there"]
-
-# EXPOSE 2001:22
-# CMD ["/usr/sbin/sshd", “-D”]
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# alpline Dockerfile 
 
 
 # RUN \
