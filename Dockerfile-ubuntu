@@ -2,9 +2,9 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install  openssh-server sudo wireshark net-tools -y
+RUN apt update && apt install  openssh-server sudo tcpdump net-tools -y
 RUN  echo 'root:password' | chpasswd
-RUN touch /home/ubuntu/hi.txt |echo "hi"> hi.txt
+RUN touch /home/ubuntu/hi.txt |echo "hi theres more here <3"> hi.txt
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
 RUN  echo 'test:test' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config

@@ -2,23 +2,59 @@ version: '3.9'
 
 services:
   dev1:
-    image: ubuntu
+    container_name: dev-1
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
     ports:
       - "2201:22"
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev1
-    command: "sleep 10000"
+    # command: "sleep 10000"
 
-
-    # networks: 
-    #   - SSID1
   dev2:
-    image: ubuntu
+    container_name: dev-2
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
     ports:
       - "2202:22"
     volumes:
-    - /Users/annika/Documents/SSID:/purple/dev2
-    command: "sleep 10000"
+      - /Users/annika/Documents/SSID:/purple/dev2
+    # command: "sleep 10000"
+
+
+  dev3:
+    container_name: dev-3
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2203:22"
+    volumes:
+      - /Users/annika/Documents/SSID:/purple/dev3
+    # command: "sleep 10000"
+
+  dev4:
+    container_name: dev-4
+    # image: ubuntu
+    build:
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2204:22"
+    volumes:
+      - /Users/annika/Documents/SSID:/purple/dev4
+    # command: "sleep 10000"
+  # dev3:
+  #   image: ubuntu
+  #   ports:
+  #     - "2202:22"
+  #   volumes:
+  #   - /Users/annika/Documents/SSID:/purple/dev3
+  #   command: "sleep 10000"
   #   network: SSID1
 
 networks:
