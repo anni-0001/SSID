@@ -14,4 +14,3 @@ To access any container within instance:
     docker exec -it <container ID> bash
     
 To add containers, simply modify the docker-compose.yaml 
-
