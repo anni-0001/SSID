@@ -47,15 +47,13 @@ services:
       - "2204:22"
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev4
-    # command: "sleep 10000"
-  # dev3:
-  #   image: ubuntu
-  #   ports:
-  #     - "2202:22"
-  #   volumes:
-  #   - /Users/annika/Documents/SSID:/purple/dev3
-  #   command: "sleep 10000"
-  #   network: SSID1
+
+  tcpdump:
+    image: kaazing/tcpdump
+    network_mode: "SSID1"
+    volumes:
+      - ./tcpdump:/tcpdump
+    command: "tcpdump -i eth0 -w /dev/stdout/ >tcpdump/tcpdump.pcap"
 
 networks:
   default:
