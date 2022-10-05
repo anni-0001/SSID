@@ -1,7 +1,7 @@
 # SSID-Docker
 
 To spin up instances:
-    docker-compose up -d
+    {docker-compose up -d}
 
 To stop all instances:
     docker-compose stop
