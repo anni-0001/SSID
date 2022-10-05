@@ -1,6 +1,6 @@
 # SSID-Docker
 
-This project is an improvement of previous works on Stepping Stone Intrusion Detection.
+This project is an improvement of previous works on Stepping Stone Intrusion Detection. Automation is the key here, with a streamlined approach relying less on python scripting and more on the powerful Docker API to spin up infrastructure seamlessly.
 
 
 # Documentation
