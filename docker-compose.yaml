@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile-ubuntu
     ports:
       - "2201:22"
+    hostname: dev1
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev1
     # command: "sleep 10000"
@@ -21,6 +22,7 @@ services:
       dockerfile: Dockerfile-ubuntu
     ports:
       - "2202:22"
+    hostname: dev2
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev2
     # command: "sleep 10000"
@@ -34,17 +36,20 @@ services:
       dockerfile: Dockerfile-ubuntu
     ports:
       - "2203:22"
+    hostname: dev3
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev3
     # command: "sleep 10000"
 
   dev4:
     container_name: dev-4
+    
     # image: ubuntu
     build:
       dockerfile: Dockerfile-ubuntu
     ports:
       - "2204:22"
+    hostname: dev4
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev4
 
@@ -53,7 +58,7 @@ services:
     network_mode: "SSID1"
     volumes:
       - ./tcpdump:/tcpdump
-    command: "tcpdump -i eth0 -w /dev/stdout/ >tcpdump/tcpdump.pcap"
+    # command: "tcpdump -i eth0 -w /dev/stdout/ >tcpdump/tcpdump.pcap| sleep 100000"
 
 networks:
   default:
