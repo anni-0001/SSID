@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# for i in # of simulations
-# make new directory with simulation round #
-# run tcpdump for x seconds
-# cd back to respective dev directory
 service ssh start
-
 
 # grab ip address
 ipaddr=$(/sbin/ifconfig eth0 | grep 'inet')
@@ -45,11 +40,3 @@ done
 
 # touch purple/$HOSTNAME/tcpdump/$HOSTNAME.pcap
 # timeout 500 tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$HOSTNAME.pcap
-
-# maybe make static ip addresses for each container
-# that way we alwasy know which contianer is 
-# victim vs attacker vs intermediary
-
-
-# if $HOSTNAME == 'dev1':
-#     ssh test@$ip
