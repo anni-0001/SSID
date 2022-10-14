@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+  # host/victim container
   dev1:
     container_name: dev-1
     # image: ubuntu
@@ -12,7 +13,6 @@ services:
     hostname: dev1
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev1
-    # command: "sleep 10000"
 
   dev2:
     container_name: dev-2
@@ -25,7 +25,6 @@ services:
     hostname: dev2
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev2
-    # command: "sleep 10000"
 
 
   dev3:
@@ -39,8 +38,8 @@ services:
     hostname: dev3
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev3
-    # command: "sleep 10000"
 
+  # hacker container
   dev4:
     container_name: dev-4
     
@@ -53,12 +52,11 @@ services:
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev4
 
-  tcpdump:
-    image: kaazing/tcpdump
-    network_mode: "SSID1"
-    volumes:
-      - ./tcpdump:/tcpdump
-    # command: "tcpdump -i eth0 -w /dev/stdout/ >tcpdump/tcpdump.pcap| sleep 100000"
+  # tcpdump:
+  #   image: kaazing/tcpdump
+  #   network_mode: "SSID1"
+  #   volumes:
+  #     - ./tcpdump:/tcpdump
 
 networks:
   default:

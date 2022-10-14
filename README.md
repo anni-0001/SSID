@@ -13,4 +13,10 @@ To stop all instances:
 To access any container within instance:
     docker exec -it <container ID> bash
     
+
+
 To add containers, simply modify the docker-compose.yaml 
+
+To rebuild all instances with updated Dockerfile: 
+    docker-compose up --build
+

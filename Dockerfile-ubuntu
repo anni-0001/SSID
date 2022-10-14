@@ -2,31 +2,15 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-# ARG hostname = hostname
-RUN apt update && apt install  openssh-server sudo tcpdump vim tmux net-tools -y
+RUN apt update && apt install  openssh-server sudo tcpdump vim tmux gawk net-tools -y
 RUN  echo 'root:password' | chpasswd
-# RUN touch /home/ubuntu/hi.txt |echo "hi theres more here <3"> hi.txt
-# RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
 RUN  echo 'test:test' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 RUN service ssh start
-# 
-# RUN mkdir scripts
-COPY entrypoint.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/entrypoint.sh
-RUN cat etc/hosts > happy.txt
-# RUN echo "$(hostname)" > happy.txt
-
-# RUN ./entrypoint.sh
-# RUN /usr/local/sbin/entrypoint.sh
+COPY tcpconf.sh /usr/local/sbin/
+RUN chmod +x /usr/local/sbin/tcpconf.sh
 EXPOSE 22
-# ENTRYPOINT [ "entrypoint.sh" ]
-# RUN /enrtrypoint.sh
-# RUN 
-# CMD ["/entrypoint.sh"]
-# CMD [ "/Users/annika/Documents/SSID/entrypoint.sh" ]
-CMD ["/usr/sbin/sshd","-D"]
-# add the initating commands for tmux sessions
+CMD ["/usr/local/sbin/tcpconf.sh"]
 
 # commands to enter to activate:
 # create the containers
