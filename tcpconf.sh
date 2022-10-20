@@ -2,10 +2,10 @@
 
 
 # setting experiemnt variables
-dir_num=25
-round=1
-SCAN_TIME=60
-hostNUM=4
+dir_num=25 # can be set to how ever many iterations of experiment
+round=1 #a simple counter for rounds interation
+SCAN_TIME=60 # modify for length of experiment
+hostNUM=4 # modify for # of hosts to run experiement on
 
 # starting ssh
 service ssh start
@@ -31,7 +31,9 @@ comment
 
 while [ $round -le $dir_num ]
 do 
-    mkdir purple/$HOSTNAME/tcpdump/$round
+    mkdir purple/tester
+    # mkdir purple/$HOSTNAME/tcpdump/$round
+    # touch /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
 
     # touch a_file.txt
 
@@ -48,13 +50,9 @@ do
 
     # sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
     echo "Round: ${round}" 
-    timeout $SCAN_TIME tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
-    
-    # if [ $hostNUM == $hostnumber ]; then
-    #     echo $(date) >> purple/$HOSTNAME/tcpdump/done.txt
-    #     echo "Experiment is concluded... maximum hosts ${hostNUM} reached" >> purple/$HOSTNAME/tcpdump/done4.txt
 
-    #     # break
+    timeout $SCAN_TIME tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
+
     if [ $hostnumber == 1 ]; then
         
         ssh -J test@${ipaddr:0:9}$((hostnumber+2)), test@${ipaddr:0:9}$((hostnumber+3)), test@${ipaddr:0:9}$((hostnumber+4))

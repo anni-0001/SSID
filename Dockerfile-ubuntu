@@ -2,16 +2,17 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install  openssh-server sudo sshpass tcpdump vim tmux gawk net-tools -y
+RUN apt update && apt install  openssh-server sudo sshpass tcpdump vim tmux net-tools -y
 RUN echo 'root:password' | chpasswd
-RUN echo 'test:test' | chpasswd
+# RUN echo 'test:test' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 RUN service ssh start
 COPY tcpconf.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/tcpconf.sh
-# RUN echo 'test' > password.txt | chmod 600 password.txt
+RUN echo 'test' > password.txt | chmod 600 password.txt
 EXPOSE 22
 CMD ["/usr/local/sbin/tcpconf.sh"]
+# CMD [sleep 100]
 
 # commands to enter to activate:
 # create the containers

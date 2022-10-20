@@ -4,6 +4,10 @@ This project is an improvement of previous works on Stepping Stone Intrusion Det
 
 
 # Documentation
+
+To create network:
+    docker network create SSID1
+    
 To spin up instances:
     docker-compose up -d
 
