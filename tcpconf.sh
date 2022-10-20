@@ -10,6 +10,10 @@ hostNUM=4 # modify for # of hosts to run experiement on
 # starting ssh
 service ssh start
 
+
+
+
+
 # run password into file
 echo 'test' > password.txt 
 chmod 600 password.txt
@@ -23,6 +27,14 @@ hostnumber=${HOSTNAME:3}
 nextDev=${ipaddr:0:9}$((hostnumber+2))
 
 # sleep 10000
+
+
+# LOOK HERE
+
+# change to external view 
+# cut off this scrpt just setting tcp listener - no while loops
+# ssh extrnerally & loop exterally for packet capture (outside bash scrip from personal command line)
+
 
 << comment
 creates x number of 
