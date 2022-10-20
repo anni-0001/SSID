@@ -31,7 +31,7 @@ nextDev=${ipaddr:0:9}$((hostnumber+2))
 
 # LOOK HERE
 
-# change to external view 
+# make new script external view for SSH and iterate the experiments from outside docker containers
 # cut off this scrpt just setting tcp listener - no while loops
 # ssh extrnerally & loop exterally for packet capture (outside bash scrip from personal command line)
 
