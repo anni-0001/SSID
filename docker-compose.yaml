@@ -25,6 +25,8 @@ services:
     hostname: dev2
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev2
+    depends_on:
+      - dev1
 
 
   dev3:
@@ -38,6 +40,8 @@ services:
     hostname: dev3
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev3
+    depends_on:
+      - dev2
 
   # hacker container
   dev4:
@@ -51,6 +55,8 @@ services:
     hostname: dev4
     volumes:
       - /Users/annika/Documents/SSID:/purple/dev4
+    depends_on:
+      - dev3
 
   # tcpdump:
   #   image: kaazing/tcpdump
