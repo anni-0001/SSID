@@ -12,7 +12,9 @@ services:
       - "2201:22"
     hostname: dev1
     volumes:
-      - ${SHARED_VOLUME}/dev1
+      # - ${SHARED_VOLUME}/dev1
+      # - /Users/amc1100/Documents/research/SSID:/purple/dev1
+      - /home/amc1100/Documents/research/SSID:/purple/dev1
     #  - /Users/gccis-amc1100-rl1/Documents/research/SSID:/purple/dev1
   
 
@@ -29,7 +31,8 @@ services:
       - "2202:22"
     hostname: dev2
     volumes:
-      - ${SHARED_VOLUME}/dev2
+      # - ${SHARED_VOLUME}/dev2
+      - /home/amc1100/Documents/research/SSID:/purple/dev2
       # - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev2
       # - /Users/annika/Documents/SSID:/purple/dev2
 
@@ -47,7 +50,9 @@ services:
       - "2203:22"
     hostname: dev3
     volumes:
-      - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev3
+      # - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev3
+      - /home/amc1100/Documents/research/SSID:/purple/dev3
+      # - /Users/amc1100/Documents/research/SSID:purple/dev3
       # - ${SHARED_VOLUME}/dev3
     depends_on:
       - dev2
@@ -64,7 +69,9 @@ services:
     hostname: dev4
     volumes:
       # - ${SHARED_VOLUME}/dev4
-      - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev4
+      - /home/amc1100/Documents/research/SSID:/purple/dev4
+      # - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev4
+      # - /Users/amc1100/Documents/research/SSID:purple/dev4
       # - /Users/annika/Documents/SSID:/purple/dev4
     depends_on:
       - dev3

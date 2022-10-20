@@ -22,7 +22,7 @@ lastoctet=${ipaddr:9}
 hostnumber=${HOSTNAME:3}
 nextDev=${ipaddr:0:9}$((hostnumber+2))
 
-
+# sleep 10000
 
 << comment
 creates x number of 
@@ -31,14 +31,15 @@ comment
 
 while [ $round -le $dir_num ]
 do 
-    mkdir purple/tester
-    # mkdir purple/$HOSTNAME/tcpdump/$round
+    # mkdir purple/tester
+    mkdir /purple/$HOSTNAME/tcpdump/$round
     # touch /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
 
     # touch a_file.txt
 
     ((round ++))
 done &
+sleep 100
 
 << comment
 runs tcpdump y times for 
@@ -51,7 +52,7 @@ do
     # sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
     echo "Round: ${round}" 
 
-    timeout $SCAN_TIME tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
+    timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
 
     if [ $hostnumber == 1 ]; then
         
