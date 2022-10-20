@@ -10,13 +10,17 @@ hostNUM=4
 # starting ssh
 service ssh start
 
+# run password into file
+echo 'test' > password.txt 
+chmod 600 password.txt
+
 # grab ip address & adding to fiel
 echo "${HOSTNAME} : $(hostname -i)" >> purple/$HOSTNAME/tcpdump/devaddr.txt
 # organizing IP addresses & indexes
 ipaddr=$(hostname -i)
 lastoctet=${ipaddr:9}
 hostnumber=${HOSTNAME:3}
-nextDev=${ipaddr:0:9}$((hostnumber+1))
+nextDev=${ipaddr:0:9}$((hostnumber+2))
 
 
 
@@ -29,7 +33,7 @@ while [ $round -le $dir_num ]
 do 
     mkdir purple/$HOSTNAME/tcpdump/$round
 
-    touch a_file.txt
+    # touch a_file.txt
 
     ((round ++))
 done &
@@ -42,12 +46,27 @@ comment
 while [ $round -le $dir_num ]
 do 
 
-    ssh $hostname
+    # sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
+    echo "Round: ${round}" 
+    timeout $SCAN_TIME tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
+    
+    # if [ $hostNUM == $hostnumber ]; then
+    #     echo $(date) >> purple/$HOSTNAME/tcpdump/done.txt
+    #     echo "Experiment is concluded... maximum hosts ${hostNUM} reached" >> purple/$HOSTNAME/tcpdump/done4.txt
 
-    timeout $SCAN_TIME tcpdump -i eth0 -w purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
+    #     # break
+    if [ $hostnumber == 1 ]; then
+        
+        ssh -J test@${ipaddr:0:9}$((hostnumber+2)), test@${ipaddr:0:9}$((hostnumber+3)), test@${ipaddr:0:9}$((hostnumber+4))
+        echo "hi I was here" >> sshTest.txt
 
+
+    fi
     ((round ++))
-done
+done 
+
+
+
 
 
 # random number generator for random command generation
@@ -57,57 +76,25 @@ done
             # ssh ips are +1 from hostname, ssh into ip (hostname +2)
 #       (PARSE IP FILE OR maybe touch a file)
 
-
+# if (())
 
 
 # working currently: @ 8:45 pm
 
 
-# ipaddr=$(hostname -i)
-# lastoctet=${ipaddr:9}
-# hostnumber=${HOSTNAME:3}
-# nextDev=${ipaddr:0:9}$((hostnumber+2))
+
 # h=1
 
-while [ $h -le $hostNUM ]
-do
-	# echo $nextDev
-	# echo $HOSTNAME
-	ssh root@$nextDev
-	((hostnumber++))
-	((h++))
-done
+# while [ $h -le $hostNUM ]
+# do
+# 	# echo $nextDev
+# 	# echo $HOSTNAME
+#     sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
+# 	# sshpass root@$nextDev
+# 	((hostnumber++))
+# 	((h++))
+# done
 
 
 
-
-
-# grabs the IP of the next host
-
-# echo "$((host+1))"
-
-# combines first part of IP & next host in last octet
-
-
-# echo $nextDev
-~             
-
-# # grabs the last octet of current host IP:
-# ipaddr=$(hostname -i)
-# lastoctet=${ipaddr:9}
-
-# # grabs the IP of the next host
-# nexthost=${HOSTNAME:3}
-# echo "$((host+1))"
-
-# # combines
-# nextDev=${ipaddr:0:9}$nexthost
-
-
-# # last=4
-# # ipmore=${ipaddr:0:9}
-
-# # echo $nextDev
-# # echo $ipmore
-# # echo $ip
 
