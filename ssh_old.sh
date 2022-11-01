@@ -28,6 +28,12 @@ elif [ $hostnumber == 1 ]; then
 fi
 
 
+ssh -L 
+
+
+
+
+
 # if (($hostNUM == $hostnumber))
 # then
 #     echo $(date) >> purple/$HOSTNAME/tcpdump/done.txt

@@ -4,25 +4,22 @@
 # setting experiemnt variables
 dir_num=25 # can be set to how ever many iterations of experiment
 round=1 #a simple counter for rounds interation
-SCAN_TIME=60 # modify for length of experiment
+SCAN_TIME=200 # modify for length of experiment
 hostNUM=4 # modify for # of hosts to run experiement on
 
 # starting ssh
 service ssh start
-
-
-
-
 
 # run password into file
 echo 'test' > password.txt 
 chmod 600 password.txt
 
 # grab ip address & adding to fiel
-echo "${HOSTNAME} : $(hostname -i)" >> purple/$HOSTNAME/tcpdump/devaddr.txt
+echo "${HOSTNAME}:$(hostname -i)" >> purple/$HOSTNAME/tcpdump/devaddr.txt
 # organizing IP addresses & indexes
 ipaddr=$(hostname -i)
 lastoctet=${ipaddr:9}
+echo "$lastoctet"
 hostnumber=${HOSTNAME:3}
 nextDev=${ipaddr:0:9}$((hostnumber+2))
 
@@ -44,7 +41,7 @@ comment
 while [ $round -le $dir_num ]
 do 
     # mkdir purple/tester
-    mkdir /purple/$HOSTNAME/tcpdump/$round
+    mkdir /purple/$HOSTNAME/tcpdump/$round 2>&1 | grep -v "mkdir:"
     # touch /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
 
     # touch a_file.txt
