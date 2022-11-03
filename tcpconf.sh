@@ -78,6 +78,7 @@ then copy into nextDev private key file?
 
 need to automate ssh so that it does not ask fora password & already a known host
     ssh is working, but not in the way we want it to - is there a way to trigger a script on local machine when docker runs?
+    maybe try on a smaller scale 
 
 try:
 - mounting shared volume with the ssh keys
