@@ -70,6 +70,7 @@ services:
     volumes:
       # - ${SHARED_VOLUME}/dev4
       - /home/amc1100/Documents/research/SSID:/purple/dev4
+      # - ~/.ssh:/purple/dev4/
       # - /Users/gccis-amc1100-rl1/Documents/SSID:/purple/dev4
       # - /Users/amc1100/Documents/research/SSID:purple/dev4
       # - /Users/annika/Documents/SSID:/purple/dev4
@@ -87,12 +88,8 @@ networks:
     name: SSID1
     external: true
 
-# networks:
-#   external:
-#     name: SSID1
-  # frontend-network:
-  #   # external: true
-  #   driver: bridge
-  #   external: true
-  #   name: SSID1
+# secrets:
+#   user_ssh_key:
+#     file: ~/.ssh/id_rsa
+
 

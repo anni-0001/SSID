@@ -1,11 +1,12 @@
 #!/bin/bash
 
-
 # ipaddress array
 declare -a arrVar
 arrVar=()
 port=22
 user=root
+
+# echo ips into ~/.ssh/known_hosts
 
 filename="/tcpdump/devaddr.txt"
 IFS=":"
@@ -15,7 +16,7 @@ while read -r line; do
 
     arrVar+=("$dev")
 
-done < "ips.txt" 
+done < "/tcpdump/ips.txt" 
 echo "${arrVar[@]}"
 
 ssh -A -t -p $port $user@${arrVar[0]} ssh -A -t -p $port $user@${arrVar[1]} ssh -A -t -p $port $user@${arrVar[2]} ssh -A -t -p $port $user@${arrVar[3]} #ssh -A -p $port $user@${arrVar[4]}

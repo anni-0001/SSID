@@ -11,6 +11,13 @@ COPY tcpconf.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/tcpconf.sh
 RUN echo 'test' > password.txt | chmod 600 password.txt
 EXPOSE 22
+# testing ssh: key gen using same volumes
+# RUN mkdir -p /home/test/.ssh
+# COPY id_rsa_shared /home/test/.ssh/id_rsa
+# RUN mkdir /home/test/.ssh/known_hosts
+
+
+
 CMD ["/usr/local/sbin/tcpconf.sh"]
 # CMD [sleep 100]
 
