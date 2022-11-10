@@ -5,8 +5,25 @@ FROM ubuntu
 RUN apt update && apt install  openssh-server sudo sshpass tcpdump vim tmux net-tools -y
 RUN echo 'root:password' | chpasswd
 # RUN echo 'test:test' | chpasswd
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 RUN service ssh start
+RUN mkdir ~/.ssh
+# RUN mkdir ~/.ssh/HII
+
+RUN chmod 700 ~/.ssh
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+# RUN sed -i 's/#PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/g' /etc/ssh/sshd_config
+RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
+RUN touch ~/.ssh/authorized_keys
+# RUN chmod 600 ~/.ssh/authorized_keys
+COPY config /root/.ssh/
+RUN chmod 600 ~/.ssh/config
+# RUN sed -i 's/#PermitEmptyPassworPermitEmptyPasswords yes/g' /etc/ssh/sshd_config
+# RUN echo 'StrictHostKeyChecking'
+# RUN ["/bin/bash", "-c","ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y"]
+# RUN chmod 600 ~/.ssh/id_rsa 
+RUN service ssh restart
+
 COPY tcpconf.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/tcpconf.sh
 RUN echo 'test' > password.txt | chmod 600 password.txt
@@ -17,6 +34,8 @@ EXPOSE 22
 # RUN mkdir /home/test/.ssh/known_hosts
 
 
+# RUN ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
+# RUN [/bin/bash ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y]
 
 CMD ["/usr/local/sbin/tcpconf.sh"]
 # CMD [sleep 100]

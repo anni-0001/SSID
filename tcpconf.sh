@@ -7,6 +7,7 @@ round=1 #a simple counter for rounds interation
 SCAN_TIME=200 # modify for length of experiment
 hostNUM=4 # modify for # of hosts to run experiement on
 
+
 # starting ssh
 service ssh start
 
@@ -51,8 +52,7 @@ done &
 # sleep 100
 
 << comment
-runs tcpdump y times for 
-x number of directoreis for experiments
+this loop could add all ips into known hosts 
 comment
 
 declare -a arrVar
@@ -71,6 +71,22 @@ user=test
 # done < "tcpdump/ips.txt" 
 # echo "${arrVar[@]}"
 
+# for i in 1 2 3 4
+# do
+#     # echo "~/.ssh/is_rsa.pub"
+#     echo ssh-copy-id dev
+# name=dev
+# num=
+# ssh-keygen
+# touch ~/.ssh/authorized_keys
+ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
+# ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 root@$nextDev
+
+# cat ~/.ssh/id_rsa.pub | ssh root@$nextDev "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh root@$nextDev 'cat >> ~/.ssh/authorized_keys'
+chmod 600 ~/.ssh/authorized_keys
+service ssh restart
+# ssh-keyscan $nextDev
 
 << comment
 ssh-keygen 
@@ -86,11 +102,17 @@ try:
 - try python perimeko library for automating some of teh docker env types
 comment
 
-
+<< comment
+runs tcpdump y times for                                                                                                                       
+x number of directoreis for experiments
+comment
 
 # mkdir ~/.ssh/known_hosts
 # ssh-keyscan -H $nextDev >> ~/.ssh/known_hosts
 # echo "~/.ssh/known_hosts"
+
+
+
 
 while [ $round -le $dir_num ]
 do 
@@ -100,6 +122,9 @@ do
     echo "hostnumber ${hostnumber}" 
 
     timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
+
+# needs to be sudo - decide if we even want this funcitonality
+    # cat ~/.ssh/id_rsa.pub | ssh $nextDev 'cat >> /.ssh/authorized_keys'
 
     if [ $hostnumber == 1 ]; then
         # ssh -A -t -p $port $user@${arrVar[0]} ssh -A -t -p $port $user@${arrVar[1]} ssh -A -t -p $port $user@${arrVar[2]} ssh -A -t -p $port $user@${arrVar[3]}
@@ -115,7 +140,12 @@ do
     ((round ++))
 done 
 
+# ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.5
 
+works
+# ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -oStrictHostKeyChecking=no root@172.18.0.5
+# ssh -A -t -p 22 root@172.18.0.2 ssh -A -t -p 22 root@172.18.0.3 ssh -A -t -p 22 root@172.18.0.4 ssh -A -p 22 root@172.18.0.5
+ssh -A -t -p 22 root@dev1 ssh -A -t -p 22 root@dev2 ssh -A -t -p 22 root@dev3 ssh -A -p 22 root@dev4
 
 
 
