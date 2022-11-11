@@ -1,5 +1,14 @@
 #!/bin/bash
 
+<< comment
+
+This script is loaded by Dockerfile-ubuntu for experiment management
+
+- creates required file system
+- sets experiment perameters (rounds, time, type)
+- starts tcpdump for packet capture
+
+comment
 
 # setting experiemnt variables
 dir_num=25 # can be set to how ever many iterations of experiment
@@ -24,7 +33,6 @@ echo "$lastoctet"
 hostnumber=${HOSTNAME:3}
 nextDev=${ipaddr:0:9}$((hostnumber+2))
 
-# sleep 10000
 
 
 # LOOK HERE
@@ -41,15 +49,11 @@ comment
 
 while [ $round -le $dir_num ]
 do 
-    # mkdir purple/tester
     mkdir /purple/$HOSTNAME/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    # touch /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
 
-    # touch a_file.txt
 
     ((round ++))
 done &
-# sleep 100
 
 << comment
 this loop could add all ips into known hosts 
@@ -60,33 +64,13 @@ arrVar=()
 port=22
 user=test
 
-# filename="/tcpdump/devaddr.txt"
-# IFS=":"
-# while read -r line; do
 
-#     dev=$(echo "$line" | cut -d ":" -f2)
-
-#     arrVar+=("$dev")
-
-# done < "tcpdump/ips.txt" 
-# echo "${arrVar[@]}"
-
-# for i in 1 2 3 4
-# do
-#     # echo "~/.ssh/is_rsa.pub"
-#     echo ssh-copy-id dev
-# name=dev
-# num=
-# ssh-keygen
-# touch ~/.ssh/authorized_keys
 ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
-# ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 root@$nextDev
 
 # cat ~/.ssh/id_rsa.pub | ssh root@$nextDev "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 cat ~/.ssh/id_rsa.pub | ssh root@$nextDev 'cat >> ~/.ssh/authorized_keys'
 chmod 600 ~/.ssh/authorized_keys
 service ssh restart
-# ssh-keyscan $nextDev
 
 << comment
 ssh-keygen 
@@ -98,8 +82,9 @@ need to automate ssh so that it does not ask fora password & already a known hos
 
 try:
 - mounting shared volume with the ssh keys
+    ** seperate key files --> read those into authorized hosts
 - try expects bash script & then add interactive @bottom to spawn an interactive shell
-- try python perimeko library for automating some of teh docker env types
+- try python perimeko library for automating some of the docker env types
 comment
 
 << comment
@@ -113,28 +98,17 @@ comment
 
 
 
-
+# starts a round dir_num of times - initiates tcp dump for 'timeout' number of seconds
 while [ $round -le $dir_num ]
 do 
 
-    # sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
     echo "Round: ${round}"
-    echo "hostnumber ${hostnumber}" 
 
     timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
 
-# needs to be sudo - decide if we even want this funcitonality
-    # cat ~/.ssh/id_rsa.pub | ssh $nextDev 'cat >> /.ssh/authorized_keys'
-
+    # if host is dev1 - run ssh tunnel through other hosts
     if [ $hostnumber == 1 ]; then
-        # ssh -A -t -p $port $user@${arrVar[0]} ssh -A -t -p $port $user@${arrVar[1]} ssh -A -t -p $port $user@${arrVar[2]} ssh -A -t -p $port $user@${arrVar[3]}
-
-        ssh -A -t -p $port $user@172.18.0.2 ssh -A -t -p $port $user@172.18.0.3 ssh -A -t -p $port $user@172.18.0.4 ssh -A -p $port $user@172.18.0.5 
-
-        
-        # ssh -J test@${ipaddr:0:9}$((hostnumber+2)), test@${ipaddr:0:9}$((hostnumber+3)), test@${ipaddr:0:9}$((hostnumber+4))
-        # echo "hi I was here" >> sshTest.txt
-
+        ssh -A -t -p $port root@172.18.0.3 ssh -A -t -p $port root@172.18.0.4 ssh -A -p $port root@172.18.0.5
 
     fi
     ((round ++))
@@ -142,10 +116,17 @@ done
 
 # ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.5
 
-works
+# works
 # ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -oStrictHostKeyChecking=no root@172.18.0.5
 # ssh -A -t -p 22 root@172.18.0.2 ssh -A -t -p 22 root@172.18.0.3 ssh -A -t -p 22 root@172.18.0.4 ssh -A -p 22 root@172.18.0.5
-ssh -A -t -p 22 root@dev1 ssh -A -t -p 22 root@dev2 ssh -A -t -p 22 root@dev3 ssh -A -p 22 root@dev4
+# ssh -A -t -p 22 root@dev1 ssh -A -t -p 22 root@dev2 ssh -A -t -p 22 root@dev3 ssh -A -p 22 root@dev4
+<<comment
+    interactive tunnel: not recreating tunnel for each commmand
+        - expects bash 
+    tmux session in final dev: have open bash session for commands
+        - have script that pipes commands
+
+comment
 
 
 
@@ -157,24 +138,6 @@ ssh -A -t -p 22 root@dev1 ssh -A -t -p 22 root@dev2 ssh -A -t -p 22 root@dev3 ss
 #       (PARSE IP FILE OR maybe touch a file)
 
 # if (())
-
-
-# working currently: @ 8:45 pm
-
-
-
-# h=1
-
-# while [ $h -le $hostNUM ]
-# do
-# 	# echo $nextDev
-# 	# echo $HOSTNAME
-#     sshpass -f password.txt /usr/bin/ssh -p 22 test@$nextDev
-# 	# sshpass root@$nextDev
-# 	((hostnumber++))
-# 	((h++))
-# done
-
 
 
 
