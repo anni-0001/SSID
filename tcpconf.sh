@@ -65,61 +65,62 @@ port=22
 user=test
 
 
-ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
-
-# cat ~/.ssh/id_rsa.pub | ssh root@$nextDev "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-cat ~/.ssh/id_rsa.pub | ssh root@$nextDev 'cat >> ~/.ssh/authorized_keys'
-chmod 600 ~/.ssh/authorized_keys
-service ssh restart
-
 << comment
-ssh-keygen 
-then copy into nextDev private key file?
+    ssh-keygen 
+    then copy into nextDev private key file?
 
-need to automate ssh so that it does not ask fora password & already a known host
+    need to automate ssh so that it does not ask fora password & already a known host
     ssh is working, but not in the way we want it to - is there a way to trigger a script on local machine when docker runs?
     maybe try on a smaller scale 
 
-try:
-- mounting shared volume with the ssh keys
-    ** seperate key files --> read those into authorized hosts
-- try expects bash script & then add interactive @bottom to spawn an interactive shell
-- try python perimeko library for automating some of the docker env types
+    try:
+    - mounting shared volume with the ssh keys
+        ** seperate key files --> read those into authorized hosts
+    - try expects bash script & then add interactive @bottom to spawn an interactive shell
+    - try python perimeko library for automating some of the docker env types
+
+
+
+    ssh configs using keys ... in progress:
+
+    ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
+    cat ~/.ssh/id_rsa.pub | ssh root@$nextDev "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+    cat ~/.ssh/id_rsa.pub | ssh root@$nextDev 'cat >> ~/.ssh/authorized_keys'
+    chmod 600 ~/.ssh/authorized_keys
+    service ssh restart
+
+
+    # mkdir ~/.ssh/known_hosts
+    # ssh-keyscan -H $nextDev >> ~/.ssh/known_hosts
+    # echo "~/.ssh/known_hosts"
+
+
 comment
+
 
 << comment
-runs tcpdump y times for                                                                                                                       
-x number of directoreis for experiments
+runs tcpdump x times for                                                                                                                       
+x number of  experiments
+generates x folders
 comment
 
-# mkdir ~/.ssh/known_hosts
-# ssh-keyscan -H $nextDev >> ~/.ssh/known_hosts
-# echo "~/.ssh/known_hosts"
-
-
-
-# starts a round dir_num of times - initiates tcp dump for 'timeout' number of seconds
+# starts a round dir_num of times - initiates tcp dump for 'SCAN_TIME' number of seconds
 while [ $round -le $dir_num ]
 do 
 
     echo "Round: ${round}"
 
-    timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
-
+    timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap --print
+    # timeout $SCANTIME 
     # if host is dev1 - run ssh tunnel through other hosts
     if [ $hostnumber == 1 ]; then
-        ssh -A -t -p $port root@172.18.0.3 ssh -A -t -p $port root@172.18.0.4 ssh -A -p $port root@172.18.0.5
-
+        # ssh -A -t -p $port root@172.18.0.3 ssh -A -t -p $port root@172.18.0.4 ssh -A -p $port root@172.18.0.5
+        ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
+        
     fi
     ((round ++))
 done 
 
-# ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no root@172.18.0.5
-
-# works
-# ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.3 ssh -A -t -p 22 -oStrictHostKeyChecking=no root@172.18.0.4 ssh -A -p 22 -oStrictHostKeyChecking=no root@172.18.0.5
-# ssh -A -t -p 22 root@172.18.0.2 ssh -A -t -p 22 root@172.18.0.3 ssh -A -t -p 22 root@172.18.0.4 ssh -A -p 22 root@172.18.0.5
-# ssh -A -t -p 22 root@dev1 ssh -A -t -p 22 root@dev2 ssh -A -t -p 22 root@dev3 ssh -A -p 22 root@dev4
 <<comment
     interactive tunnel: not recreating tunnel for each commmand
         - expects bash 

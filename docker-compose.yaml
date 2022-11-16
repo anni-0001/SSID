@@ -13,9 +13,7 @@ services:
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME}:/purple/dev1
-      # - /home/amc1100/Documents/research/SSID:/purple/dev1
 
-    
 
   dev2:
     container_name: dev-2
@@ -28,8 +26,6 @@ services:
     hostname: dev2
     volumes:
       - ${SHARED_VOLUME}:/purple/dev2
- 
-
     depends_on:
       - dev1
 
@@ -45,10 +41,9 @@ services:
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME}:/purple/dev3
-      # - /home/amc1100/Documents/research/SSID:/purple/dev3
-
     depends_on:
       - dev2
+
 
   # hacker container
   dev4:
@@ -61,10 +56,7 @@ services:
       - "2204:22"
     hostname: dev4
     volumes:
-      # - ${SHARED_VOLUME}/dev4
       - ${SHARED_VOLUME}:/purple/dev4
-      # - /home/amc1100/Documents/research/SSID:/purple/dev4
-
     depends_on:
       - dev3
 

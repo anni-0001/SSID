@@ -14,27 +14,16 @@ RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
 RUN touch ~/.ssh/authorized_keys
 COPY config /root/.ssh/
 RUN chmod 600 ~/.ssh/config
-# RUN sed -i 's/#PermitEmptyPassworPermitEmptyPasswords yes/g' /etc/ssh/sshd_config
-# RUN echo 'StrictHostKeyChecking'
-# RUN ["/bin/bash", "-c","ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y"]
-# RUN chmod 600 ~/.ssh/id_rsa 
+
 RUN service ssh restart
 
 COPY tcpconf.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/tcpconf.sh
 RUN echo 'test' > password.txt | chmod 600 password.txt
 EXPOSE 22
-# testing ssh: key gen using same volumes
-# RUN mkdir -p /home/test/.ssh
-# COPY id_rsa_shared /home/test/.ssh/id_rsa
-# RUN mkdir /home/test/.ssh/known_hosts
-
-
-# RUN ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y
-# RUN [/bin/bash ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<< y]
 
 CMD ["/usr/local/sbin/tcpconf.sh"]
-# CMD [sleep 100]
+
 
 # commands to enter to activate:
 # create the containers

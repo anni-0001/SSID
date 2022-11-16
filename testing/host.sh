@@ -1,5 +1,8 @@
 #!/bin/bash 
 
+
+echo '$HOSTNAME'
+
 name=dev
 num=1
 hostnumber=${HOSTNAME:3}
