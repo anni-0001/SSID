@@ -2,7 +2,7 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install  openssh-server sudo sshpass tcpdump vim tmux net-tools -y
+RUN apt update && apt install  openssh-server sudo sshpass tcpdump vim tmux tmuxinator net-tools -y
 RUN echo 'root:password' | chpasswd
 RUN passwd -d root
 RUN service ssh start
@@ -13,6 +13,23 @@ RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/g' /etc/ssh/sshd
 RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
 RUN touch ~/.ssh/authorized_keys
 COPY config /root/.ssh/
+COPY commands.sh /usr/local/sbin
+RUN export EDITOR=vim
+RUN sudo tmuxinator new ssid
+# RUN mkdir -p ~/.config/
+# RUN mkdir -p ~/.config/tmuxinator/
+# RUN rm ~/.config/tmuxinator/ssid.yml
+SHELL ["/bin/bash", "-c"] 
+
+# RUN cp ssid.yml ~/.config/tmuxinator/ssid.yml
+# COPY ssid.yml ~/.config/tmuxinator/
+COPY ssid.yml /usr/local/sbin/
+
+
+# RUN chmod 700 ~/.config/tmuxinator/ssid.yml
+
+# RUN tmuxinator new ssid
+RUN chmod +x /usr/local/sbin/commands.sh
 RUN chmod 600 ~/.ssh/config
 
 RUN service ssh restart

@@ -13,7 +13,7 @@ comment
 # setting experiemnt variables
 dir_num=25 # can be set to how ever many iterations of experiment
 round=1 #a simple counter for rounds interation
-SCAN_TIME=200 # modify for length of experiment
+SCAN_TIME=30 # modify for length of experiment
 hostNUM=4 # modify for # of hosts to run experiement on
 
 
@@ -109,19 +109,40 @@ while [ $round -le $dir_num ]
 do 
 
     echo "Round: ${round}"
+    tmuxinator start ssid -n $round -p /usr/local/sbin/ssid.yml
+    # use tmux for send keys to plug arbitrary data into the desired panel
+        # can go char by char (micro timings)
 
-    timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap --print
+    # external script to build and kill docker containrs for each loop
+
+
+
+    # timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
     # timeout $SCANTIME 
     # if host is dev1 - run ssh tunnel through other hosts
     if [ $hostnumber == 1 ]; then
-        # ssh -A -t -p $port root@172.18.0.3 ssh -A -t -p $port root@172.18.0.4 ssh -A -p $port root@172.18.0.5
-        ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
-        
+        # ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4 "./commands.sh"
+        sleep 5
+        # port=22; ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -T -p $port root@dev4 "tmuxinator start ssid"        
+#         port=22; ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -t -p $port root@dev4  cat <<HERE 
+#         sleep 5
+#         pwd
+#         sleep 5
+#         env
+#         seq 100
+# HERE      
+
+        echo "hi"
     fi
     ((round ++))
 done 
 
 <<comment
+
+    TMUXINATOR:
+        - pane to initate tcp dump
+        - pane to run commands
+
     interactive tunnel: not recreating tunnel for each commmand
         - expects bash 
     tmux session in final dev: have open bash session for commands
