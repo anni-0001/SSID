@@ -2,11 +2,12 @@
 
 << comment
 
-This script is loaded by Dockerfile-ubuntu for experiment management
+This script is loaded by Dockerfile-ubuntu for internal experiment management
 
-- creates required file system
-- sets experiment perameters (rounds, time, type)
-- starts tcpdump for packet capture
+- run tmuxinator session
+    - tcpdump collection
+    - run tmux commands within session
+
 
 comment
 
@@ -109,17 +110,12 @@ while [ $round -le $dir_num ]
 do 
 
     echo "Round: ${round}"
-    tmuxinator start ssid -n $round -p /usr/local/sbin/ssid.yml
+    tmuxinator start ssid -n $round -p /usr/local/sbin/tmuxinator_ssid.yml
     # use tmux for send keys to plug arbitrary data into the desired panel
         # can go char by char (micro timings)
 
     # external script to build and kill docker containrs for each loop
 
-
-
-    # timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap 
-    # timeout $SCANTIME 
-    # if host is dev1 - run ssh tunnel through other hosts
     if [ $hostnumber == 1 ]; then
         # ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4 "./commands.sh"
         sleep 5
@@ -142,6 +138,9 @@ done
     TMUXINATOR:
         - pane to initate tcp dump
         - pane to run commands
+            use send key tmux to send indiivudal inputs to tmux pane
+
+
 
     interactive tunnel: not recreating tunnel for each commmand
         - expects bash 

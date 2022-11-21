@@ -1,4 +1,6 @@
-# /home/amc1100/.config/tmuxinator/ssid.yml
+# /home/amc1100/.config/tmuxinator/tmuxinator_ssid.yml
+
+# to RUN: tmuxinator start ssid -p tmuxinator_ssid.yml
 
 name: ssid
 root: ~/

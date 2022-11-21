@@ -34,11 +34,13 @@ RUN chmod 600 ~/.ssh/config
 
 RUN service ssh restart
 
+COPY loop.sh /usr/local/sbin
+RUN chmod +x /usr/local/sbin/loop.sh
 COPY tcpconf.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/tcpconf.sh
 RUN echo 'test' > password.txt | chmod 600 password.txt
 EXPOSE 22
-
+ENTRYPOINT [ "loop.sh" ]
 CMD ["/usr/local/sbin/tcpconf.sh"]
 
 
