@@ -2,7 +2,7 @@
 
 << comment
 
-This is a simple script for cleaning up after experiemts
+This is a simple script for cleaning up folders after experiemts
 
 Helpful before a push to github to reduce unneeded data
 
