@@ -23,15 +23,14 @@ RUN service ssh restart
 
 # -------tmuxinator session configuration
 SHELL ["/bin/bash", "-c"] 
-# ENV EDITOR=vim
+ENV EDITOR=vim
 # TRYING to get the editor to export ?? maybe pivot and only do tmux??
 # RUN echo 'export EDITOR="vim"' > ~/.bashrc && os
 # RUN source ~/.bashrc
 # RUN export EDITOR=vim
 # RUN sudo tmuxinator new ssid
-# RUN echo "tmuxinator generating"
-# COPY tmuxinator_ssid.yml /usr/local/sbin/
-# RUN chmod 700 /usr/local/sbin/tmuxinator_ssid.yml
+COPY tmuxinator_ssid.yml /usr/local/sbin/
+RUN chmod 700 /usr/local/sbin/tmuxinator_ssid.yml
 
 
 # COPY ssid.yml ~/.config/tmuxinator/
@@ -43,11 +42,11 @@ SHELL ["/bin/bash", "-c"]
 # RUN chmod 700 ~/.config/tmuxinator/ssid.yml
 # RUN tmuxinator new ssid
 
-# --------docker-internal.sh 
-COPY docker-internal.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/docker-internal.sh
+# --------tcpconf.sh 
+COPY tcpconf.sh /usr/local/sbin/
+RUN chmod +x /usr/local/sbin/tcpconf.sh
 # ENTRYPOINT [ "bash", "" ]
-CMD ["/usr/local/sbin/docker-internal.sh"]
+CMD ["/usr/local/sbin/tcpconf.sh"]
 
 
 # commands to enter to activate:

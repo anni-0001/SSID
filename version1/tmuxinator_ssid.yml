@@ -1,9 +1,9 @@
-# /home/annika/.config/tmuxinator/tmuxinator_ssid.yml
+# /home/amc1100/.config/tmuxinator/tmuxinator_ssid.yml
 
 # to RUN: tmuxinator start ssid -p tmuxinator_ssid.yml
 
 name: ssid
-root: /usr/local/sbin/tmuxinator_ssid.yml
+root: ~/usr/local/sbin/tmuxinator_ssid.yml
 
 # Optional tmux socket
 # socket_name: foo
@@ -58,12 +58,12 @@ windows:
           - timeout $SCAN_TIME tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
         - ssh:
           - ssh -A -t -p $port root@de÷v2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
-        #   - sleep 10
-        #   - echo "running tmux.sh"
-        #   - sleep 5
-        #   - /Users/annika/Documents/SSID/tmux.sh
-        #   # - ./tmux.sh
+          - sleep 10
+          - echo "running tmux.sh"
+          - sleep 5
+          - /Users/annika/Documents/SSID/tmux.sh
+          # - ./tmux.sh
           
 
-        # # - tmuxinator stop ssid
+        # - tmuxinator stop ssid
         

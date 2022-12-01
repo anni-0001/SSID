@@ -2,12 +2,13 @@
 dir_num=25
 experiment_length=20
 round=0
+SCAN_TIME = 100
 # configure the files in this script - keep docker as generic as possible
 
 << comment
 - create directories, 
 - loops of number of samples : docker-compose up
-        - after $experiment_length 
+        - after $experiment_length, quit container
 
 comment
 
@@ -19,8 +20,7 @@ while [ $round -le 25 ]
 do 
 
     mkdir -p tcpdump/$round 2>&1 | grep -v "mkdir:"
-    
-
+    timeout SCAN_TIME docker-compose up --build
 
     ((round ++))
 done &

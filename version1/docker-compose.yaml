@@ -1,0 +1,67 @@
+version: '3.9'
+
+services:
+  # host/victim container
+  dev1:
+    container_name: dev-1
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2201:22"
+    hostname: dev1
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/purple/dev1
+
+
+  dev2:
+    container_name: dev-2
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2202:22"
+    hostname: dev2
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/purple/dev2
+    depends_on:
+      - dev1
+
+
+  dev3:
+    container_name: dev-3
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2203:22"
+    hostname: dev3
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/purple/dev3
+    depends_on:
+      - dev2
+
+
+  # hacker container
+  dev4:
+    container_name: dev-4
+    # image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-ubuntu
+    ports:
+      - "2204:22"
+    hostname: dev4
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/purple/dev4
+    depends_on:
+      - dev3
+
+
+networks:
+  default:
+    name: SSID1
+    external: true

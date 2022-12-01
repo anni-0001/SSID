@@ -23,7 +23,8 @@ service ssh start
 
 
 # grab ip address & adding to fiel
-echo "${HOSTNAME}:$(hostname -i)" >> purple/$HOSTNAME/tcpdump/devaddr.txt
+# echo "${HOSTNAME}:$(hostname -i)" >> /purple/$HOSTNAME/tcpdump/devaddr.txt
+# /Users/annika/Documents/SSID/tcpdump/devaddr.txt
 # organizing IP addresses & indexes
 ipaddr=$(hostname -i)
 lastoctet=${ipaddr:9}
@@ -48,6 +49,8 @@ comment
 while [ $round -le $dir_num ]
 do 
     mkdir -p /purple/$HOSTNAME/tcpdump/$round 2>&1 | grep -v "mkdir:"
+    timeout SCAN_TIME docker-compose up --build
+
 
 
     ((round ++))
@@ -79,19 +82,19 @@ comment
 
 export EDITOR="vim"
 # starts a round dir_num of times - initiates tcp dump for 'SCAN_TIME' number of seconds
-while [ $round -le $dir_num ]
-do 
-    echo "Round: ${round}"
+# while [ $round -le $dir_num ]
+# do 
+#     echo "Round: ${round}"
 
-    if [ $hostnumber == 1 ]; then
-    sudo tmuxinator new ssid
-    sudo tmuxinator start ssid -n $round -p /usr/local/sbin/tmuxinator_ssid.yml
-    # use tmux for send keys to plug arbitrary data into the desired panel
-        # can go char by char (micro timings)
+#     if [ $hostnumber == 1 ]; then
+#     sudo tmuxinator new ssid
+#     sudo tmuxinator start ssid -n $round -p /usr/local/sbin/tmuxinator_ssid.yml
+#     # use tmux for send keys to plug arbitrary data into the desired panel
+#         # can go char by char (micro timings)
 
 
-    ((round ++))
-done 
+#     ((round ++))
+# done 
 
 <<comment
 
