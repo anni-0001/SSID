@@ -18,23 +18,29 @@
 
 
 tmux new -d -s mySession
-tmux split-window -v
-# tmux send-keys -t mySession.0 "cd .." ENTER
 sleep 2
+tmux split-window -v
+tmux send-keys -t mySession.1 ""
+# tmux send-keys -t mySession.0 "cd .." ENTER
+sleep 5
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
 # tmux a -t mySession
+# tmux detach-client -t mySession.0
+# tmux detach
+
 # tmux d -t
+# can we flush send keys?
 
 sleep 2
 tmux send-keys -t mySession.0 "echo hi ; date" C-m
 # tmux a -t mySession
-
-sleep 2
+# tmux a -t mySession
+sleep 10
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
 
 sleep 5
 tmux send-keys -t mySession.0 "echo bye; date" C-m
-# sleep 2
+sleep 2
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
 
 sleep 2

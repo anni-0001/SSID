@@ -1,10 +1,15 @@
 #!/bin/bash
 
 hostnumber=${HOSTNAME:3}
+service ssh start
+export EDITOR=vim
+export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # replacement for tcpconf.sh - internal docker commands
 
 <<comment
+    - initalizes ssh 
     - initializes tmuxinator panes if dev1
         1. tcpdump 
         2. ssh tunnel
@@ -13,9 +18,7 @@ hostnumber=${HOSTNAME:3}
 
 comment
 # sleep 1000
-export EDITOR=vim
-export LC_CTYPE=en_US.UTF-8
-export LANG=en_US.UTF-8
+
 
 
 if [ $hostnumber -eq 1 ];then
@@ -25,13 +28,15 @@ if [ $hostnumber -eq 1 ];then
 
 
     echo "new session"
-    # cp -f /root/.config/tmuxinator/ssid.yml /usr/local/sbin/tmuxinator_ssid.yml
-    tmuxinator new ssid
-    # mv /usr/local/sbin/tmuxinator_ssid.yml ~/.config/tmuxinator/ssid.yml
+    # tmuxinator new ssid
+    # # mv /usr/local/sbin/tmuxinator_ssid.yml ~/.config/tmuxinator/ssid.yml
 
-    tmuxinator start ssid -p /usr/local/sbin/tmuxinator_ssid.yml
+    # tmuxinator start ssid -p /usr/local/sbin/tmuxinator_ssid.yml
 
 fi
 
-sleep 100
+# if[ $hostnumber -eq 2 ]; then
+
+
+sleep 1000
 # done
