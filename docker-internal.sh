@@ -22,9 +22,11 @@ comment
 
 
 if [ $hostnumber -eq 1 ];then
+    chmod 700 tmux.sh
+    ./tmux.sh
     # sleep 1000
     # mkdir /root/.config/tmuxinator/
-    chmod 700 /root/.config/tmuxinator/
+    # chmod 700 /root/.config/tmuxinator/
 
 
     echo "new session"

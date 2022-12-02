@@ -2,7 +2,7 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install openssh-server sudo python3 sshpass tcpdump vim tmux tmuxinator pip net-tools -y
+RUN apt update && apt install openssh-server sudo python3 sshpass tcpdump vim tmux tmuxinator netcat pip net-tools -y
 RUN pip install paramiko
 # ---------user configuration
 RUN echo 'root:password' | chpasswd
