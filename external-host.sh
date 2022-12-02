@@ -11,8 +11,10 @@ comment
 
 while [ $round -le $dir_num ]
 do 
+    echo round: $round
     mkdir -p /purple/$HOSTNAME/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    timeout SCAN_TIME docker-compose up --build
+    timeout 35 docker-compose up --build
+    sleep 5
 
 
 
