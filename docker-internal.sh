@@ -22,7 +22,9 @@ comment
 
 
 if [ $hostnumber -eq 1 ];then
-    chmod 700 tmux.sh
+    # mkdir -p /purple/$HOSTNAME/tcpdump/$round 2>&1 | grep -v "mkdir:"
+
+    chmod 700 /purple/$HOSTNAME/tcpdump/tmux.sh
     ./tmux.sh
     # sleep 1000
     # mkdir /root/.config/tmuxinator/
