@@ -22,7 +22,8 @@ RUN chmod 600 ~/.ssh/config
 RUN service ssh restart
 
 # -------tmuxinator session configuration
-SHELL ["/bin/bash", "-c"] 
+SHELL ["/bin/bash", "-c"]
+
 # ENV EDITOR=vim
 # TRYING to get the editor to export ?? maybe pivot and only do tmux??
 # RUN echo 'export EDITOR="vim"' > ~/.bashrc && os
@@ -32,6 +33,9 @@ SHELL ["/bin/bash", "-c"]
 # RUN echo "tmuxinator generating"
 # COPY tmuxinator_ssid.yml /usr/local/sbin/
 # RUN chmod 700 /usr/local/sbin/tmuxinator_ssid.yml
+COPY tmux.sh /usr/local/sbin/
+RUN chmod 700 /usr/local/sbin/tmux.sh
+
 
 
 # COPY ssid.yml ~/.config/tmuxinator/

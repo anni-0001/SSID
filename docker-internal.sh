@@ -21,15 +21,17 @@ export LANG=en_US.UTF-8
 if [ $hostnumber -eq 1 ];then
     # sleep 1000
     # mkdir /root/.config/tmuxinator/
-    chmod 700 /root/.config/tmuxinator/
+    # chmod 700 /root/.config/tmuxinator/
+
+
 
 
     echo "new session"
     # cp -f /root/.config/tmuxinator/ssid.yml /usr/local/sbin/tmuxinator_ssid.yml
-    tmuxinator new ssid
+    # tmuxinator new ssid
     # mv /usr/local/sbin/tmuxinator_ssid.yml ~/.config/tmuxinator/ssid.yml
 
-    tmuxinator start ssid -p /usr/local/sbin/tmuxinator_ssid.yml
+    # tmuxinator start ssid -p /usr/local/sbin/tmuxinator_ssid.yml
 
 fi
 

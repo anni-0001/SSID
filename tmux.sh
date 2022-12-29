@@ -19,6 +19,10 @@
 
 tmux new -d -s mySession
 tmux split-window -v
+
+
+
+
 # tmux send-keys -t mySession.0 "cd .." ENTER
 sleep 2
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
