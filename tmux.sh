@@ -18,33 +18,49 @@
 
 
 tmux new -d -s mySession
-tmux split-window -v
-
-
-
-
-# tmux send-keys -t mySession.0 "cd .." ENTER
 sleep 2
+tmux split-window -v
+<<<<<<< HEAD
+
+
+
+
+=======
+tmux send-keys -t mySession.1 "timeout 25 tcpdump -i en0 -w tcpdump.sh"
+# tmux send-keys -t mySession.1 "timeout 20 tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap"
+>>>>>>> 57dbc485c67741f8fa4551556ff94a77bce8c247
+# tmux send-keys -t mySession.0 "cd .." ENTER
+date
+tmux send-keys -t mySession.0 "date"
+echo "sent date; ${date}"
+sleep 5
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
 # tmux a -t mySession
+# tmux detach-client -t mySession.0
+# tmux detach
+date
 # tmux d -t
+# can we flush send keys?
 
 sleep 2
 tmux send-keys -t mySession.0 "echo hi ; date" C-m
 # tmux a -t mySession
-
-sleep 2
+# tmux a -t mySession
+sleep 10
+echo "going to sleep for 10 seconds"; date
 tmux send-keys -t mySession.0 "sleep 10;date" C-m
+tmux send-keys -t mySession.0 "echo 'done sleep for 10 seconds'; date" C-m
+echo "done sleep for 10 seconds"; date
 
-sleep 5
-tmux send-keys -t mySession.0 "echo bye; date" C-m
+# sleep 5
+# tmux send-keys -t mySession.0 "echo bye; date" C-m
 # sleep 2
-tmux send-keys -t mySession.0 "sleep 10;date" C-m
+# tmux send-keys -t mySession.0 "sleep 10;date" C-m
 
-sleep 2
-tmux send-keys -t mySession.1 "echo window2; date" C-m
-sleep 5
-tmux send-keys -t mySession.0 "echo bye; date" C-m
-sleep 5
+# sleep 2
+# tmux send-keys -t mySession.1 "echo window2; date" C-m
+# sleep 5
+# tmux send-keys -t mySession.0 "echo bye; date" C-m
+# sleep 5
 tmux a -t mySession
 
