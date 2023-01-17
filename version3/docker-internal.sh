@@ -15,11 +15,14 @@ do
     ((round ++))
 done &
 
-if [[ "$HOSTNAME" -eq "dev1"]]
-do 
+chmod 700 tmux.sh
 
+if [[ $HOSTNAME -eq "dev1"]]
+    ./tmux.sh
+    # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
+    # bash tmux.sh
 
-
+fi
 sleep(10000)
 
 ./cleanup.sh

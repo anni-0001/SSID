@@ -1,14 +1,38 @@
 #!/bin/bash
 
+round=1
+dir_num=25
+while [ $round -le $dir_num ]
+do 
+    echo round: $round
+
+    mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
+    # timeout SCAN_TIME docker-compose up --build
+
+    # tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
+
+
+    ((round ++))
+done &
+
+
 # Create a new session
+
 # tmux new-session -s mySession
+
+
 tmux new -d -s mySession
 
 # Split the window horizontally into two panes
-tmux split-window -v
-
+tmux split-window -h
 round=1
-while [ "$round" -le 3 ]
+cmdround=1
+
+tmux send-keys -t mySession.1 'tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap' Enter
+
+tmux send-keys -t mySession.0 ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
+
+while [ "$cmdround" -le 3 ]
 do 
     cmd=$(shuf -n 1 cmd.txt)
     printf "$cmd \n"
@@ -18,7 +42,7 @@ do
     $(( $RANDOM % 10 + 1 ))
     # sleep 3
 
-    ((round ++))
+    ((cmdround ++))
 done 
 
 tmux a -t mySession
