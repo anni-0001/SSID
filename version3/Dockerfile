@@ -26,9 +26,9 @@ RUN service ssh restart
 # RUN chmod 700 /usr/local/sbin/tmux.sh
 
 # --------docker-external.sh 
-COPY docker-external.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/docker-external.sh
-CMD ["/usr/local/sbin/docker-external.sh"]
+COPY docker-internal.sh /usr/local/sbin/
+RUN chmod +x /usr/local/sbin/docker-internal.sh
+CMD ["/usr/local/sbin/docker-internal.sh"]
 
 
 # commands to build containers:

@@ -11,10 +11,10 @@ SCAN_TIME=200
 comment
 
 # updates the container 
-sudo timeout 30 docker-compose up --build
+sudo docker-compose up --build
 
-mkdir -p ../tcpdump/$round 
-sudo docker-compose up
+# mkdir -p ../tcpdump/$round 
+# sudo docker-compose up 
 
 
 # while [ $round -eq $dir_num ]
