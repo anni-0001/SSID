@@ -1,25 +1,28 @@
 #!/bin/bash
 
-round=1
-dir_num=25
-while [ $round -le $dir_num ]
-do 
-    echo round: $round
+# round=1
+# dir_num=25
+echo $round
+# while [ $round -le $dir_num ]
+# do 
+#     echo round: $round
 
-    mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    # timeout SCAN_TIME docker-compose up --build
+#     mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
+#     # timeout SCAN_TIME docker-compose up --build
 
-    # tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
+#     # tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
 
 
-    ((round ++))
-done &
+#     ((round ++))
+# done &
 
 
 # Create a new session
 
 # tmux new-session -s mySession
 
+# maybe just put all the tmux commmands into this file so that I can break down the experiment 
+# and rebuild 
 
 tmux new -d -s mySession
 
@@ -28,7 +31,11 @@ tmux split-window -h
 round=1
 cmdround=1
 
-tmux send-keys -t mySession.1 'tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap' Enter
+echo "running tmux.sh"
+
+sleep 100
+
+tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap" Enter
 
 tmux send-keys -t mySession.0 ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
 

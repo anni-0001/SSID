@@ -1,7 +1,7 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install openssh-server sudo python3 sshpass tcpdump vim tmux tmuxinator netcat pip net-tools -y
+RUN apt update && apt install openssh-server sudo python3 sshpass tcpdump vim tmux tmuxinator netcat pip docker net-tools -y
 RUN pip install paramiko
 # ---------user configuration
 RUN echo 'root:password' | chpasswd
@@ -26,6 +26,8 @@ RUN service ssh restart
 # RUN chmod 700 /usr/local/sbin/tmux.sh
 
 # --------docker-external.sh 
+COPY tmux.sh /usr/local/sbin/
+RUN chmod +x /usr/local/sbin/tmux.sh
 COPY docker-internal.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/docker-internal.sh
 CMD ["/usr/local/sbin/docker-internal.sh"]
