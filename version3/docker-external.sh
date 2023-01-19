@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir_num=3
+dir_num=25
 round=1
 SCAN_TIME=200
 
@@ -9,9 +9,22 @@ SCAN_TIME=200
     2. loop experiments
         build docker contianers with timeout
 comment
+# need a loop of docker-internal so that I can loop the experiments and clear without mess
 
 # updates the container 
 sudo docker-compose up --build
+
+# while [ $round -le $dir_num ]
+# do 
+#     # timeout 200 sudo docker-compose up --build
+#     sudo docker-compose up --build
+#     # echo "in while loop"
+#     # sleep 1000
+
+#     ((round ++))
+# done &
+
+# ./cleanup.sh
 
 # mkdir -p ../tcpdump/$round 
 # sudo docker-compose up 

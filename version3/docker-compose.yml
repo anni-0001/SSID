@@ -37,7 +37,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "2203:22"
+      - "2233:22"
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME}:/purple/

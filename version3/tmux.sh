@@ -33,7 +33,7 @@ cmdround=1
 
 echo "running tmux.sh"
 
-sleep 100
+sleep 10
 
 tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap" Enter
 
