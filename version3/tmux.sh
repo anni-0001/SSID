@@ -30,14 +30,15 @@ tmux new -d -s mySession
 tmux split-window -h
 round=1
 cmdround=1
+port=22
 
 echo "running tmux.sh"
 
-sleep 10
+sleep 5
 
 tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap" Enter
 
-tmux send-keys -t mySession.0 ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4
+tmux send-keys -t mySession.0 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 
 while [ "$cmdround" -le 3 ]
 do 

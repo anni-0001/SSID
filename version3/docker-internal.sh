@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+service ssh start
+
 round=1
 dir_num=25
 while [ $round -le $dir_num ]
@@ -19,7 +21,10 @@ round=1
 # working alias
 if [ "$HOSTNAME" == "dev4" ]; then
 
-    echo 'alias hi="echo hello"' >> ~/.bashrc
+    # echo 'alias hi="echo hello"' >> ~/.bashrc
+    chmod 700 /purple/version3/sleep-timer.sh
+    # alias sleep-timer='bash '
+    alias sleeper="bash /purple/version3/sleep-timer.sh"
 
     fi &
 
@@ -34,7 +39,7 @@ if [ "$HOSTNAME" == "dev1" ]; then
 
 fi &
 
-sleep 1000
+sleep 10000
 
 echo "all ($dir_num) directories made!"
 
