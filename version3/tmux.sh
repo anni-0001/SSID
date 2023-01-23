@@ -47,8 +47,8 @@ do
     tmux send-keys -t mySession.0 "$cmd" Enter
     tmux send-keys -t mySession.0 "date" Enter
     # $cmd
-    $(( $RANDOM % 10 + 1 ))
-    # sleep 3
+    rand=$(( $RANDOM % 10 + 1 ))
+    sleep $rand
 
     ((cmdround ++))
 done 

@@ -39,6 +39,12 @@ if [ "$HOSTNAME" == "dev1" ]; then
 
 fi &
 
+if [ "$HOSTNAME" == "dev2" ] ||[ "$HOSTNAME" == "dev3" ] || [ "$HOSTNAME" == "dev4" ]; then
+    tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
+
+
+fi &
+
 sleep 10000
 
 echo "all ($dir_num) directories made!"
