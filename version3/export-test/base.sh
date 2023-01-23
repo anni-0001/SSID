@@ -1,4 +1,4 @@
 #!/bin/bash
+echo $var
 
-var=5
-export 5
+export var2=5
