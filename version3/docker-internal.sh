@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 service ssh start
-
+# export round 
 round=1
 dir_num=25
 while [ $round -le $dir_num ]

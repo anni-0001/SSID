@@ -49,6 +49,7 @@ do
     # $cmd
     rand=$(( $RANDOM % 10 + 1 ))
     sleep $rand
+    # sleep alias 
 
     ((cmdround ++))
 done 
