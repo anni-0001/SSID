@@ -4,20 +4,21 @@ service ssh start
 # export round 
 round=1
 dir_num=25
-while [ $round -le $dir_num ]
-do 
-    echo round: $round
-    mkdir /purple/tcpdump/$round 
-    # mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    # timeout SCAN_TIME docker-compose up --build
+# while [ $round -le $dir_num ]
+# do 
+#     echo round: $round
+#     mkdir /purple/tcpdump/$round 
+#     # mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
+#     # timeout SCAN_TIME docker-compose up --build
 
-    # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
+#     # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
 
 
-    ((round ++))
-done &
+#     ((round ++))
+# done &
 
 round=1
+
 # working alias
 if [ "$HOSTNAME" == "dev4" ]; then
 
@@ -31,11 +32,12 @@ if [ "$HOSTNAME" == "dev4" ]; then
 if [ "$HOSTNAME" == "dev1" ]; then
 #         export round
     
-        echo 'alias round="($round)"'
+        # echo 'alias round="($round)"'
 
 #         ./usr/local/sbin/tmux.sh
         # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
 #         # bash tmux.sh
+        bash /opt/tmux
 
 fi &
 

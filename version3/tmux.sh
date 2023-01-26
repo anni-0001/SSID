@@ -28,15 +28,19 @@ tmux new -d -s mySession
 
 # Split the window horizontally into two panes
 tmux split-window -h
-round=1
+# round=1
 cmdround=1
 port=22
-
+# folder=
+# source round.txt
+experiment_num="cat round.txt"
+echo $experiment_num
 echo "running tmux.sh"
-
+experiment_num=$(cat round.txt)
+echo $experiment_num
 sleep 5
 
-tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
 
 tmux send-keys -t mySession.0 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 

@@ -2,7 +2,7 @@
 
 dir_num=25
 round=1
-SCAN_TIME=300
+SCAN_TIME=60
 
 <<comment
     1. make directories : /tcpdump
@@ -20,10 +20,11 @@ round=1
 dir_num=25
 while [ $round -le $dir_num ]
 do 
-    echo round: $round
-    mkdir /purple/tcpdump/$round 
+    # echo round: $round
+    # mkdir /purple/tcpdump/$round 
     # mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    # timeout SCAN_TIME docker-compose up --build
+    mkdir -p /Users/annika/Documents/SSID/tcpdump/$round 
+    # timeout $SCAN_TIME docker-compose up --build
 
     # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
 
@@ -31,12 +32,19 @@ do
     ((round ++))
 done &
 
+# experiment_num=$(cat round.txt)
+# echo $experiment_num
+
 round=1
 for ((i=1; i<=dir_num; i++))
 do
 # export round
-# sudo timeout $SCAN_TIME docker-compose up --build
+
+sudo timeout $SCAN_TIME docker-compose up --build
 echo "$i" >round.txt
+experiment_num=$(cat round.txt)
+echo $experiment_num
+sleep 2
 done
 # while [ $round -le $dir_num ]
 # do 

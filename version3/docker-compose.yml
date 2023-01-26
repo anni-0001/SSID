@@ -12,7 +12,7 @@ services:
       - "2201:22"
     hostname: dev1
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - ${SHARED_VOLUME_HOME}:/purple/
 
 
   dev2:
@@ -25,7 +25,7 @@ services:
       - "2202:22"
     hostname: dev2
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - ${SHARED_VOLUME_HOME}:/purple/
     depends_on:
       - dev1
 
@@ -40,7 +40,7 @@ services:
       - "2233:22"
     hostname: dev3
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - ${SHARED_VOLUME_HOME}:/purple/
     depends_on:
       - dev2
 
@@ -56,7 +56,7 @@ services:
       - "2204:22"
     hostname: dev4
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - ${SHARED_VOLUME_HOME}:/purple/
     depends_on:
       - dev3
 
