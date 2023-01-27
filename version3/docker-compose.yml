@@ -12,7 +12,10 @@ services:
       - "2201:22"
     hostname: dev1
     volumes:
-      - ${SHARED_VOLUME_HOME}:/purple/
+      - ${SHARED_VOLUME}:/purple/
+    tty: true
+
+    # command: sleep 1000
 
 
   dev2:
@@ -25,9 +28,10 @@ services:
       - "2202:22"
     hostname: dev2
     volumes:
-      - ${SHARED_VOLUME_HOME}:/purple/
+      - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev1
+    command: sleep 50
 
 
   dev3:
@@ -40,9 +44,10 @@ services:
       - "2233:22"
     hostname: dev3
     volumes:
-      - ${SHARED_VOLUME_HOME}:/purple/
+      - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev2
+    command: sleep 50
 
 
   # hacker container
@@ -56,9 +61,10 @@ services:
       - "2204:22"
     hostname: dev4
     volumes:
-      - ${SHARED_VOLUME_HOME}:/purple/
+      - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev3
+    command: sleep 50
 
 
 networks:

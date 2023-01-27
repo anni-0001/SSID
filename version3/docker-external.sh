@@ -20,41 +20,31 @@ round=1
 dir_num=25
 while [ $round -le $dir_num ]
 do 
-    # echo round: $round
-    # mkdir /purple/tcpdump/$round 
-    # mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
-    mkdir -p /Users/annika/Documents/SSID/tcpdump/$round 
-    # timeout $SCAN_TIME docker-compose up --build
+   
+    mkdir /home/amc1100/Documents/research/SSID/tcpdump/$round 
+    timeout $SCAN_TIME docker-compose up --build
 
     # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
 
 
     ((round ++))
 done &
-
+sleep 5
 # experiment_num=$(cat round.txt)
 # echo $experiment_num
 
-round=1
-for ((i=1; i<=dir_num; i++))
-do
-# export round
+# round=1
+# for ((i=1; i<=dir_num; i++))
+# do
+#     # export round
+#     echo "$i" >round.txt
+#     experiment_num=$(cat round.txt)
+#     sudo timeout $SCAN_TIME docker-compose up --build
 
-sudo timeout $SCAN_TIME docker-compose up --build
-echo "$i" >round.txt
-experiment_num=$(cat round.txt)
-echo $experiment_num
-sleep 2
-done
-# while [ $round -le $dir_num ]
-# do 
-#     # timeout 200 sudo docker-compose up --build
-#     sudo docker-compose up --build
-#     # echo "in while loop"
-#     # sleep 1000
+#     echo $experiment_num
+#     sleep 2
+# done
 
-#     ((round ++))
-# done &
 
 # ./cleanup.sh
 
@@ -62,16 +52,6 @@ done
 # sudo docker-compose up 
 
 
-# while [ $round -eq $dir_num ]
-# do 
-#     echo round: $round
-# sudo -p mkdir tcpdump/$round #2>&1 | grep -v "mkdir:"
-#     docker-compose up 
-#     sleep 5
 
-
-
-#     ((round ++))
-# done 
 
 

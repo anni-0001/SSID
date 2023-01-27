@@ -36,7 +36,7 @@ port=22
 experiment_num="cat round.txt"
 echo $experiment_num
 echo "running tmux.sh"
-experiment_num=$(cat round.txt)
+experiment_num=$(cat /purple/version3/round.txt)
 echo $experiment_num
 sleep 5
 
@@ -44,9 +44,9 @@ tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$experiment_nu
 
 tmux send-keys -t mySession.0 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 
-while [ "$cmdround" -le 3 ]
+while [ "$cmdround" -le 5 ]
 do 
-    cmd=$(shuf -n 1 cmd.txt)
+    cmd=$(shuf -n 1 /purple/version3/cmd.txt)
     printf "$cmd \n"
     tmux send-keys -t mySession.0 "$cmd" Enter
     tmux send-keys -t mySession.0 "date" Enter

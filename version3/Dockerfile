@@ -26,8 +26,8 @@ RUN service ssh restart
 # RUN chmod 700 /usr/local/sbin/tmux.sh
 
 # --------docker-external.sh 
-COPY tmux.sh /opt
-RUN chmod +x /opt/tmux.sh
+COPY tmux.sh /opt/
+RUN chmod 700 /opt/tmux.sh
 COPY cmd.txt /opt/
 COPY docker-internal.sh /opt/
 RUN chmod +x /opt/docker-internal.sh

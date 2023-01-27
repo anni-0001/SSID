@@ -13,10 +13,10 @@ while [ $i -le 25 ]
 do
     echo "removing folder ${i}"
     # rm -rf tcpdump/$i
-    rm -rf /home/amc1100/Documents/research/SSID/tcpdump/$i
+    sudo rm -rf /home/amc1100/Documents/research/SSID/tcpdump/
 
     
     ((i++))
 done  &
 
-docker ps -qa|xargs docker rm -f
+# docker ps -qa|xargs docker rm -f
