@@ -40,16 +40,16 @@ experiment_num=$(cat /purple/version3/round.txt)
 echo $experiment_num
 sleep 5
 
-tmux send-keys -t mySession.1 "tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.0 "tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
 
-tmux send-keys -t mySession.0 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
+tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 
 while [ "$cmdround" -le 5 ]
 do 
     cmd=$(shuf -n 1 /purple/version3/cmd.txt)
     printf "$cmd \n"
-    tmux send-keys -t mySession.0 "$cmd" Enter
-    tmux send-keys -t mySession.0 "date" Enter
+    tmux send-keys -t mySession.1 "$cmd" Enter
+    tmux send-keys -t mySession.1 "date" Enter
     # $cmd
     rand=$(( $RANDOM % 10 + 1 ))
     sleep $rand

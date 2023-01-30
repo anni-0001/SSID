@@ -4,6 +4,7 @@
 # export round 
 round=1
 dir_num=25
+SCAN_TIME=80
 
 
 round=1
@@ -46,17 +47,17 @@ sleep 5
 #         ./usr/local/sbin/tmux.sh
         # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
 #         # bash tmux.sh
-        ./opt/tmux.sh
+        bash /opt/tmux.sh
         # tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap
 
-fi 
+fi &
 
-# if [ "$HOSTNAME" == "dev2" ] ||[ "$HOSTNAME" == "dev3" ] || [ "$HOSTNAME" == "dev4" ]; then
-#     # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
-#     tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap
+if [ "$HOSTNAME" == "dev2" ] ||[ "$HOSTNAME" == "dev3" ] || [ "$HOSTNAME" == "dev4" ]; then
+    # tcpdump -i eth0 -w /purple/tcpdump/$round/$HOSTNAME.pcap
+    timeout $SCAN_TIME tcpdump  -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap
 
 
-# fi
+fi
 
 # sleep 10000
 

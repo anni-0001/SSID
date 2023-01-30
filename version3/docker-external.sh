@@ -2,7 +2,7 @@
 
 dir_num=25
 round=1
-SCAN_TIME=60
+SCAN_TIME=100
 
 <<comment
     1. make directories : /tcpdump
@@ -20,6 +20,7 @@ round=1
 dir_num=25
 while [ $round -le $dir_num ]
 do 
+    # echo $round
    
     mkdir /home/amc1100/Documents/research/SSID/tcpdump/$round 
     timeout $SCAN_TIME docker-compose up --build
@@ -30,20 +31,21 @@ do
     ((round ++))
 done &
 sleep 5
-# experiment_num=$(cat round.txt)
+experiment_num=$(cat round.txt)
 # echo $experiment_num
 
 # round=1
-# for ((i=1; i<=dir_num; i++))
-# do
-#     # export round
-#     echo "$i" >round.txt
-#     experiment_num=$(cat round.txt)
-#     sudo timeout $SCAN_TIME docker-compose up --build
+for ((i=1; i<=dir_num; i++))
+do
+    # export round
+    echo "$i" >round.txt
+    echo $experiment_num
+    experiment_num=$(cat round.txt)
+    sudo timeout $SCAN_TIME docker-compose up --build
 
-#     echo $experiment_num
-#     sleep 2
-# done
+    echo $experiment_num
+    sleep 2
+done
 
 
 # ./cleanup.sh

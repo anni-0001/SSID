@@ -13,9 +13,8 @@ services:
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    tty: true
-
-    # command: sleep 1000
+    # tty: true
+    command: sleep 100
 
 
   dev2:
@@ -31,7 +30,7 @@ services:
       - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev1
-    command: sleep 50
+    # command: sleep 50
 
 
   dev3:
@@ -47,7 +46,7 @@ services:
       - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev2
-    command: sleep 50
+    # command: sleep 100
 
 
   # hacker container
@@ -64,7 +63,7 @@ services:
       - ${SHARED_VOLUME}:/purple/
     depends_on:
       - dev3
-    command: sleep 50
+    # command: sleep 50
 
 
 networks:
