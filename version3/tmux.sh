@@ -14,7 +14,6 @@ fi
 
 cmdround=1
 port=22
-echo $experiment_num
 echo "running tmux.sh"
 
 # safety sleep?
@@ -25,8 +24,10 @@ tmux new -d -s mySession
 # Split the window horizontally into two panes
 tmux split-window -h
 
-tmux send-keys -t mySession.0 "timeout $scan_time tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
 echo "Starting pcap capture..."
+
+sleep 5
 
 tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo "Building tunnel..."
