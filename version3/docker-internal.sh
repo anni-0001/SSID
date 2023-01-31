@@ -23,9 +23,7 @@ fi
 #scan_time=$(cat $RT_DIR/scan_time.txt)
 
 if [ "$HOSTNAME" == "dev1" ]; then
-    /opt/tmux.sh $experiment_num $scan_time
-fi
-
-if [ "$HOSTNAME" == "dev2" ] ||[ "$HOSTNAME" == "dev3" ] || [ "$HOSTNAME" == "dev4" ]; then
+    timeout $scan_time /opt/tmux.sh $experiment_num $scan_time
+else
     timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
 fi

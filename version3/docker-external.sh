@@ -20,9 +20,7 @@ do
     mkdir -p ${RT_DIR}/tcpdump/${round}
 
     # start up docker containers
-    docker-compose up --build;
-
-    wait
+    docker-compose up --build
 
     ((round ++))
 done &
