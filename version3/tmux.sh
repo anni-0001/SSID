@@ -1,56 +1,42 @@
 #!/bin/bash
 
-# round=1
-# dir_num=25
-echo $round
-# while [ $round -le $dir_num ]
-# do 
-#     echo round: $round
-
-#     mkdir -p /purple/tcpdump/$round 2>&1 | grep -v "mkdir:"
-#     # timeout SCAN_TIME docker-compose up --build
-
-#     # tcpdump -i eth0 -w /purple/$HOSTNAME/tcpdump/$round/$HOSTNAME.pcap
-
-
-#     ((round ++))
-# done &
+if [ $1 ]; then
+    experiment_num=$1
+else
+    experiment_num=0
+fi
+if [ $2 ]; then
+    scan_time=$2
+else
+    scan_time=20
+fi
 
 
-# Create a new session
+cmdround=1
+port=22
+echo $experiment_num
+echo "running tmux.sh"
 
-# tmux new-session -s mySession
-
-# maybe just put all the tmux commmands into this file so that I can break down the experiment 
-# and rebuild 
+# safety sleep?
+sleep 5
 
 tmux new -d -s mySession
 
 # Split the window horizontally into two panes
 tmux split-window -h
-# round=1
-cmdround=1
-port=22
-# folder=
-# source round.txt
-experiment_num="cat round.txt"
-echo $experiment_num
-echo "running tmux.sh"
-experiment_num=$(cat /purple/version3/round.txt)
-echo $experiment_num
-sleep 5
 
-tmux send-keys -t mySession.0 "tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.0 "timeout $scan_time tcpdump -i eth0 -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+echo "Starting pcap capture..."
 
 tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
+echo "Building tunnel..."
 
 while [ "$cmdround" -le 5 ]
 do 
     cmd=$(shuf -n 1 /purple/version3/cmd.txt)
     printf "$cmd \n"
     tmux send-keys -t mySession.1 "$cmd" Enter
-    tmux send-keys -t mySession.1 "date" Enter
-    # $cmd
+    #tmux send-keys -t mySession.1 "date" Enter
     rand=$(( $RANDOM % 10 + 1 ))
     sleep $rand
     # sleep alias 

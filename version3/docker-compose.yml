@@ -1,72 +1,56 @@
-version: '3.9'
-
+version: '3'
 services:
-  # host/victim container
-  dev1:
-    container_name: dev-1
-    # image: ubuntu
+  dev4:
+    container_name: dev4
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "2201:22"
-    hostname: dev1
+    hostname: dev4
     volumes:
-      - ${SHARED_VOLUME}:/purple/
-    # tty: true
-    command: sleep 100
-
-
-  dev2:
-    container_name: dev-2
-    # image: ubuntu
+      - /home/nate/SSID:/purple/
+    command: /opt/docker-internal.sh 2 100
+              
+  dev3:
+    container_name: dev3
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "2202:22"
-    hostname: dev2
+    hostname: dev3
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - /home/nate/SSID:/purple/
+    command: /opt/docker-internal.sh 2 100
     depends_on:
-      - dev1
-    # command: sleep 50
-
-
-  dev3:
-    container_name: dev-3
-    # image: ubuntu
+      - dev4
+              
+  dev2:
+    container_name: dev2
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "2233:22"
-    hostname: dev3
+      - "2203:22"
+    hostname: dev2
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - /home/nate/SSID:/purple/
+    command: /opt/docker-internal.sh 2 100
     depends_on:
-      - dev2
-    # command: sleep 100
-
-
-  # hacker container
-  dev4:
-    container_name: dev-4
-    # image: ubuntu
+      - dev3
+              
+  dev1:
+    container_name: dev1
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "2204:22"
-    hostname: dev4
+    hostname: dev1
     volumes:
-      - ${SHARED_VOLUME}:/purple/
+      - /home/nate/SSID:/purple/
+    command: /opt/docker-internal.sh 2 100
     depends_on:
-      - dev3
-    # command: sleep 50
-
-
-networks:
-  default:
-    name: SSID1
-    external: true
+      - dev2
+              

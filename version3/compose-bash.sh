@@ -1,36 +1,50 @@
 #!/bin/bash
 
 # initalize variables
-z=4
-start_port=2201
-SHARED_VOLUME=/home/amc1100/Documents/research/SSID
-SHARED_VOLUME_HOME=/Users/annika/Documents/SSID:/purple/
+z=$(($1+2))
+experiment_num=$2
+scan_time=$3
+
+if [ $4 ]; then
+    SHARED_VOLUME=$4
+else
+    SHARED_VOLUME=./
+fi
+
+START_PORT=2201
+SHARED_VOLUME_HOME=$SHARED_VOLUME:/purple/
+OUT=docker-compose.yml
 
 # Create the docker-compose.yml file
-echo "version: '3'" > docker-compose1.yml
-echo "services:" >> docker-compose1.yml
+echo "version: '3'" > $OUT
+echo "services:" >> $OUT
 
-# Loop to create z hosts
-for ((i=1; i<=z; i++))
-do
-    echo "  dev$i:" >> docker-compose1.yml
-    echo "    container_name: dev$i" >> docker-compose1.yml
-    echo "    build:" >> docker-compose1.yml
-    echo "      context: ." >> docker-compose1.yml
-    echo "      dockerfile: Dockerfile" >> docker-compose1.yml
-    echo "    ports:" >> docker-compose1.yml
+write_entry () {
+    echo "  dev$1:" >> $OUT
+    echo "    container_name: dev$1" >> $OUT
+    echo "    build:" >> $OUT
+    echo "      context: ." >> $OUT
+    echo "      dockerfile: Dockerfile" >> $OUT
+    echo "    ports:" >> $OUT
     # echo '      - "220$1:"' >> docker-compose1.yml
-    echo "      - ${start_port}:22" >> docker-compose1.yml
-    start_port=$((start_port+1))
-    echo "    hostname: dev$i" >> docker-compose1.yml
-    echo "    volumes:" >> docker-compose1.yml
-    echo "      - $SHARED_VOLUME:/purple/" >> docker-compose1.yml
-    if [ $i -gt 1 ]; then
-        echo "    depends_on:" >> docker-compose1.yml
-        echo "      - dev$((i-1))" >> docker-compose1.yml
-        
-        echo dev$((i-1))
+    echo "      - \"${START_PORT}:22\"" >> $OUT
+    START_PORT=$(($START_PORT+1))
+    echo "    hostname: dev$1" >> $OUT
+    echo "    volumes:" >> $OUT
+    echo "      - $SHARED_VOLUME:/purple/" >> $OUT
+    echo "    command: /opt/docker-internal.sh $experiment_num $scan_time" >> $OUT
+    if [ $2 ]; then
+        echo "    depends_on:" >> $OUT
+        echo "      - dev$2" >> $OUT
     fi 
-    echo "              " >> docker-compose1.yml
+    echo "              " >> $OUT
+}
 
+# Write target (victim) host w/ no dependency
+write_entry $z
+# Write Stepping-stone hosts & attacker (all depending on prior host)
+for ((i=z-1; i>0; i--))
+do
+    j=$(($i+1))
+    write_entry $i $j
 done
