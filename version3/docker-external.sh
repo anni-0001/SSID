@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOTAL_ROUNDS=2
+TOTAL_ROUNDS=1
 SCAN_TIME=100
 RT_DIR=/home/nate/SSID
 
@@ -22,9 +22,13 @@ do
     # start up docker containers
     docker-compose up --build
 
+    # sleep 5 - find better method to wait until all contianers dead
+
     ((round ++))
 done &
 sleep 5
+
+# when dockercompose tunrs on -sleep for scantime
 
 
 

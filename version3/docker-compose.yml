@@ -10,7 +10,7 @@ services:
     hostname: dev4
     volumes:
       - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 100
+    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
               
   dev3:
     container_name: dev3
@@ -22,7 +22,7 @@ services:
     hostname: dev3
     volumes:
       - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 100
+    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
     depends_on:
       - dev4
               
@@ -36,7 +36,7 @@ services:
     hostname: dev2
     volumes:
       - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 100
+    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
     depends_on:
       - dev3
               
@@ -50,7 +50,7 @@ services:
     hostname: dev1
     volumes:
       - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 100
+    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
     depends_on:
       - dev2
               
