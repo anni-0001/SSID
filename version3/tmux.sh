@@ -8,7 +8,7 @@ fi
 if [ $2 ]; then
     scan_time=$2
 else
-    scan_time=20
+    scan_time=200
 fi
 
 
@@ -20,6 +20,9 @@ echo "running tmux.sh"
 sleep 5
 
 tmux new -d -s mySession
+# tmux new -s mySession
+
+sleep 3
 
 # Split the window horizontally into two panes
 tmux split-window -h
@@ -31,6 +34,9 @@ sleep 5
 
 tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo "Building tunnel..."
+sleep 10
+tmux a -t mySession
+tmux d -t mySession
 
 while [ "$cmdround" -le 5 ]
 do 
@@ -45,6 +51,7 @@ do
     ((cmdround ++))
 done 
 
+echo "attatching session tmux"
 tmux a -t mySession
 
 # Set the working directory for the left pane

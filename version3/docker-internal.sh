@@ -1,9 +1,11 @@
 #!/bin/bash 
 
 # hard-coded params
-SCAN_TIME=20
+SCAN_TIME=50
 RT_DIR="/purple/version3"
-TCP_DIR="/purple/tcpdump"
+TCP_DIR="/purple/tcpdump/"
+
+service ssh restart
 
 if [ $1 ]
 then

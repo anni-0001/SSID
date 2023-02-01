@@ -9,8 +9,10 @@ services:
       - "2201:22"
     hostname: dev4
     volumes:
-      - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
+      - ${SHARED_VOLUME}:/purple/
+    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
+    stdin_open: true
+    tty: true
               
   dev3:
     container_name: dev3
@@ -21,10 +23,12 @@ services:
       - "2202:22"
     hostname: dev3
     volumes:
-      - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
+      - ${SHARED_VOLUME}:/purple/
+    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
     depends_on:
       - dev4
+    stdin_open: true
+    tty: true
               
   dev2:
     container_name: dev2
@@ -35,11 +39,13 @@ services:
       - "2203:22"
     hostname: dev2
     volumes:
-      - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
+      - ${SHARED_VOLUME}:/purple/
+    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
     depends_on:
       - dev3
-              
+    stdin_open: true
+    tty: true
+
   dev1:
     container_name: dev1
     build:
@@ -49,8 +55,14 @@ services:
       - "2204:22"
     hostname: dev1
     volumes:
-      - /home/nate/SSID:/purple/
-    command: /opt/docker-internal.sh 2 ${SCAN_TIME}
+      - ${SHARED_VOLUME}:/purple/
+    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
     depends_on:
       - dev2
-              
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    name: SSID1
+    external: true
