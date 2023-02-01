@@ -24,8 +24,12 @@ fi
 #experiment_num=$(cat $RT_DIR/round.txt)
 #scan_time=$(cat $RT_DIR/scan_time.txt)
 
+
 if [ "$HOSTNAME" == "dev1" ]; then
     timeout $scan_time /opt/tmux.sh $experiment_num $scan_time
+    # something to send signal that script is done
+    # want main loop in external to start timing of building and breaking of containers
+    
 else
     timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
 fi
