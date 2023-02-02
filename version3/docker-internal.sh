@@ -3,7 +3,7 @@
 # hard-coded params
 SCAN_TIME=50
 RT_DIR="/purple/version3"
-TCP_DIR="/purple/tcpdump/"
+TCP_DIR="/purple/tcpdump"
 
 service ssh restart
 
@@ -26,10 +26,12 @@ fi
 
 
 if [ "$HOSTNAME" == "dev1" ]; then
+    echo " [*] Running tmux.sh on $HOSTNAME"
     timeout $scan_time /opt/tmux.sh $experiment_num $scan_time
     # something to send signal that script is done
     # want main loop in external to start timing of building and breaking of containers
-    
+
 else
+    echo " [*] Running tcpdump on $HOSTNAME"
     timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
 fi
