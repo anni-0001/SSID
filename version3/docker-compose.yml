@@ -10,7 +10,8 @@ services:
     hostname: dev4
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
+    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: ROUND=$(cat /purple/version3/round.txt) && /opt/docker-internal.sh ${ROUND} ${SCAN_TIME}
     stdin_open: true
     tty: true
               
@@ -24,7 +25,8 @@ services:
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
+    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: ROUND=$(cat /purple/version3/round.txt) && /opt/docker-internal.sh ${ROUND} ${SCAN_TIME}
     depends_on:
       - dev4
     stdin_open: true
@@ -40,7 +42,8 @@ services:
     hostname: dev2
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
+    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: ROUND=$(cat /purple/version3/round.txt) && /opt/docker-internal.sh ${ROUND} ${SCAN_TIME}
     depends_on:
       - dev3
     stdin_open: true
@@ -56,7 +59,8 @@ services:
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh 1 ${SCAN_TIME}
+    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: ROUND=$(cat /purple/version3/round.txt); /opt/docker-internal.sh ${ROUND} ${SCAN_TIME}
     depends_on:
       - dev2
     stdin_open: true

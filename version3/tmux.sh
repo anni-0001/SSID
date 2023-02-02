@@ -53,8 +53,7 @@ done
 
 echo "attatching session tmux"
 tmux a -t mySession
-tmux d -t mySession
-
+tmux kill-session -t mySession
 # Set the working directory for the left pane
 # tmux send-keys -t mysession:0.0 'shuf -n 1 cmd.txt' Enter
 
