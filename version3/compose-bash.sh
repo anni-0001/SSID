@@ -8,7 +8,7 @@ scan_time=$3
 if [ $4 ]; then
     SHARED_VOLUME=$4
 else
-    SHARED_VOLUME=./
+    SHARED_VOLUME=/home/amc1100/Documents/research/SSID
 fi
 
 START_PORT=2201

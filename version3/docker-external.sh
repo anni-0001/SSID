@@ -1,11 +1,16 @@
 #!/bin/bash
 
-TOTAL_ROUNDS=150
+TOTAL_ROUNDS=100
 SCAN_TIME=100
+devices=4
 HOME_DIR=/home/amc1100/Documents/research/SSID/tcpdump
 
 round=1
-# look into building docker image
+# look into building standard docker image
+
+# runs automated ssh config for x number of devices
+bash ssh-config.sh $devices
+echo $devices > dev-num.txt
 
 while [ $round -le $TOTAL_ROUNDS ]
 do
@@ -28,6 +33,7 @@ do
     # sleep $SCAN_TIME + $
     docker wait dev1
     echo " [*] dev1 exited"
+    echo " [*] stopping & removing containers"
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
     sleep 30

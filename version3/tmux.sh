@@ -11,6 +11,8 @@ else
     scan_time=200
 fi
 
+service ssh restart
+
 
 cmdround=1
 port=22
@@ -33,12 +35,21 @@ echo " [*] Starting pcap capture..."
 
 sleep 5
 
+devices=$(cat /purple/version3/dev-num.txt)
+
 # initiating ssh tunnel
-tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
+# tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
 sleep 10
 
-# tmux session management
+# sshtunnel=" "
+# for ((i=2; i<=devices; i++)); do
+# # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev$i "
+# sshtunnel+="ssh -A -t -p $port root@dev$i "
+# done 
+
+# tmux send-keys -t mySession.1 "$sshtunnel" Enter
+# tmux session managementy
 tmux a -t mySession
 tmux d -t mySession
 
