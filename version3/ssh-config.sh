@@ -1,11 +1,16 @@
 #!/bin/bash
 
 devices=$1
+echo $devices
 sshfile=config
 
+# need to reserve 172.18.0.0,1 in config ips ssh
 echo " " > $sshfile
 for((i=1; i<=devices; i++)); do
-    ip=$((i+1))
+    # reserves 172.18.0.0,1 in config ips ssh
+    dev_ip=$(($devices-$i))
+    ip=$(($dev_ip +2))
+
     echo "Host dev$i" >> $sshfile
     echo "Hostname 172.18.0.$ip" >> $sshfile
     echo "StrictHostKeyChecking no" >> $sshfile
