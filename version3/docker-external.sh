@@ -1,16 +1,20 @@
 #!/bin/bash
 
-TOTAL_ROUNDS=100
+TOTAL_ROUNDS=2
 SCAN_TIME=100
 devices=4
-HOME_DIR=/home/amc1100/Documents/research/SSID/tcpdump
+TCP_DIR=/home/amc1100/Documents/research/SSID/tcpdump
+VERSION_DIR=version3
 
 round=1
 # look into building standard docker image
 
-# runs automated ssh config for x number of devices
+# creates automated ssh config for x number of devices
 bash ssh-config.sh $devices
 echo $devices > dev-num.txt
+
+bash compose-bash.sh $devices
+
 
 while [ $round -le $TOTAL_ROUNDS ]
 do
@@ -22,11 +26,12 @@ do
     #   arg3: timeout length
     #   arg4: path root directory of the project
     # bash compose-bash.sh 2 $round $SCAN_TIME $RT_DIR
+    bash compose-bash.sh $devices
 
     echo " [*] Running round $round..."
    
     # create exp tcpdump dir
-    sudo mkdir -p ${HOME_DIR}/${round}
+    sudo mkdir -p ${TCP_DIR}/${round}
 
     # start up docker containers
     docker-compose up --build
@@ -41,10 +46,13 @@ do
 
 
     ((round ++))
-done &
+done 
 sleep 5
 
-echo " [*] docker-external.sh finished -- $round experiments complete"
+# gets correct # of rounds run
+finalround=$(cat round.txt)
+
+echo " [*] docker-external.sh finished -- $finalround experiments complete"
 
 
 

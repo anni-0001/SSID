@@ -1,47 +1,26 @@
  
 Host dev1
-Hostname 172.18.0.8
-StrictHostKeyChecking no
-IdentityFile ~/.ssh/id_rsa
-UserKnownHostsFile=/dev/null
-User root
- 
-Host dev2
-Hostname 172.18.0.7
-StrictHostKeyChecking no
-IdentityFile ~/.ssh/id_rsa
-UserKnownHostsFile=/dev/null
-User root
- 
-Host dev3
-Hostname 172.18.0.6
-StrictHostKeyChecking no
-IdentityFile ~/.ssh/id_rsa
-UserKnownHostsFile=/dev/null
-User root
- 
-Host dev4
 Hostname 172.18.0.5
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
-Host dev5
+Host dev2
 Hostname 172.18.0.4
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
-Host dev6
+Host dev3
 Hostname 172.18.0.3
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
-Host dev7
+Host dev4
 Hostname 172.18.0.2
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
