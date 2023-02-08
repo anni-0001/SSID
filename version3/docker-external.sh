@@ -1,20 +1,38 @@
 #!/bin/bash
 
+
+
+
 TOTAL_ROUNDS=2
-SCAN_TIME=100
+SCAN_TIME=300
 devices=4
 TCP_DIR=/home/amc1100/Documents/research/SSID/tcpdump
 VERSION_DIR=version3
 
+
+
 round=1
 # look into building standard docker image
 
+<< config 
+configutaions for 
+    - ssh config   
+    - uniform device numbers in dev-num.txt
+    - docker-compose
+    - uniform SCAN_TIME
+config 
+
 # creates automated ssh config for x number of devices
 bash ssh-config.sh $devices
+
+# creates uniform device number/ central value for all dependent files
 echo $devices > dev-num.txt
 
+# creates automated docker-compose.yml
 bash compose-bash.sh $devices
 
+# makes uniform scan_time vars in .env for all experiements
+sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
 
 while [ $round -le $TOTAL_ROUNDS ]
 do
@@ -31,6 +49,8 @@ do
     echo " [*] Running round $round..."
    
     # create exp tcpdump dir
+
+    echo " [*] making directory: $round"
     sudo mkdir -p ${TCP_DIR}/${round}
 
     # start up docker containers
