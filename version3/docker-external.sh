@@ -8,13 +8,32 @@ VERSION_DIR=version3
 round=1
 # look into building standard docker image
 
-# << comment 
-# configutaions for 
+if [ $# -eq 0 ]
+then 
+
+    echo "Enter number of devices: "
+    read devices
+    echo "Enter scan duration: "
+    read SCAN_TIME
+    echo "Enter experiment rounds: "
+    read rounds
+else
+    devices=$1
+    SCAN_TIME=$2
+    rounds=$3
+
+fi
+if [ "$1" == "static" ]; then 
+    TOTAL_ROUNDS=2
+    SCAN_TIME=300
+    devices=4
+fi
+
+# configutaions for:
 #     - ssh config   
 #     - uniform device numbers in dev-num.txt
 #     - docker-compose
 #     - uniform SCAN_TIME
-# comment 
 
 # creates automated ssh config for x number of devices
 bash ssh-config.sh $devices
