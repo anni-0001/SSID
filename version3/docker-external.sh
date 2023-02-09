@@ -1,5 +1,5 @@
 #!/bin/bash
-TOTAL_ROUNDS=2
+TOTAL_ROUNDS=2 
 SCAN_TIME=300
 devices=4
 TCP_DIR=/home/amc1100/Documents/research/SSID/tcpdump
@@ -8,26 +8,26 @@ VERSION_DIR=version3
 round=1
 # look into building standard docker image
 
-if [ $# -eq 0 ]
-then 
+if [ $# -eq 0 ]; then 
 
-    echo "Enter number of devices: "
-    read devices
-    echo "Enter scan duration: "
-    read SCAN_TIME
-    echo "Enter experiment rounds: "
-    read rounds
-else
-    devices=$1
-    SCAN_TIME=$2
-    rounds=$3
+    echo " "
+    read -p "Enter number of devices: " devices
+    read -p "Enter scan duration in seconds: " SCAN_TIME
+    read -p "Enter experiment rounds: " TOTAL_ROUNDS
+else 
 
+    if [ "$1" == "static" ]; then 
+        TOTAL_ROUNDS=2
+        SCAN_TIME=300
+        devices=4
+    else
+        devices=$1
+        SCAN_TIME=$2                                                                                                                                                                                                                                                                                                                                                 
+        TOTAL_ROUNDS=$3
+        
 fi
-if [ "$1" == "static" ]; then 
-    TOTAL_ROUNDS=2
-    SCAN_TIME=300
-    devices=4
 fi
+
 
 # configutaions for:
 #     - ssh config   
@@ -37,6 +37,13 @@ fi
 
 # creates automated ssh config for x number of devices
 bash ssh-config.sh $devices
+echo ""
+echo "CONFIGURATIONS"
+echo "Rounds: $TOTAL_ROUNDS"
+echo "SCAN_TIME: $SCAN_TIME"
+echo "Device Number: $devices"
+echo ""
+sleep 15
 
 # creates uniform device number/ central value for all dependent files
 echo $devices > dev-num.txt
@@ -64,10 +71,10 @@ do
     sudo mkdir -p ${TCP_DIR}/${round}
 
     # start up docker containers
-    docker-compose up --build
+    # docker-compose up --build
     
-    # wait till dev1 is done 
-    docker wait dev1
+    # # wait till dev1 is done 
+    # docker wait dev1
     echo " [*] dev1 exited"
     echo " [*] stopping & removing containers"
 
@@ -92,3 +99,12 @@ echo " [*] docker-external.sh finished -- $finalround experiments complete"
 
 
 
+# look at how to set things up for commmands
+# replace static commands - select random command - randomly sample send & recieve
+# sending dummy commands to create & send data - send 100 bytes as a command
+# want to recieve x data size
+
+# build loop to sample & identify numbers/stats we want to see - read from csv
+# pasrse from file, select random row (command), acces range entries, smaple bytes of random between 2 ranges, send command
+
+# on victim machine set up sinlge caharacter alias to bash oneliner to shorten the minimum number of bytes & fill in the rest with gibberish to fill random range
