@@ -16,7 +16,7 @@ scan_time=$3
 START_PORT=220$z
 echo $START_PORT
 SHARED_VOLUME_HOME=$SHARED_VOLUME:/purple/
-OUT=docker-compose1.yml
+OUT=docker-compose.yml
 
 # Create the docker-compose.yml file
 echo "version: '3'" > $OUT
