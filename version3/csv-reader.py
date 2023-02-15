@@ -21,4 +21,4 @@ with open (filename) as c:
     random_recieve=random.randint(int(recieve_low), int(recieve_high))
     print(random_recieve)
 
-    print()
+    print("")
