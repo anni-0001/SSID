@@ -38,7 +38,7 @@ sleep 5
 devices=$(cat /purple/version3/dev-num.txt)
 
 # initiating ssh tunnel
-tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
+# tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
 sleep 10
 
@@ -48,19 +48,23 @@ for ((i=2; i<=devices; i++)); do
 sshtunnel+="ssh -A -t -p $port root@dev$i "
 done 
 
-# tmux send-keys -t mySession.1 "$sshtunnel" Enter
+tmux send-keys -t mySession.1 "$sshtunnel" Enter
 # tmux session managementy
 tmux a -t mySession
 tmux d -t mySession
 
-while [ "$cmdround" -le 5 ]
+
+
+p_sleep=$(( $RANDOM % 15 + 1 ))
+n_rounds=$(( $RANDOM % 10 + 1 ))
+while [ "$cmdround" -le $n_rounds ]
 do 
     cmd=$(shuf -n 1 /purple/version3/cmd.txt)
     printf "$cmd \n"
     tmux send-keys -t mySession.1 "$cmd" Enter
     #tmux send-keys -t mySession.1 "date" Enter
-    rand=$(( $RANDOM % 10 + 1 ))
-    sleep $rand
+    # rand=$(( $RANDOM % 10 + 1 ))
+    sleep $p_sleep
     # sleep alias 
 
     ((cmdround ++))

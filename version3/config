@@ -27,3 +27,17 @@ IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
+Host dev5
+Hostname 172.18.0.6
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 
+Host dev6
+Hostname 172.18.0.7
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 

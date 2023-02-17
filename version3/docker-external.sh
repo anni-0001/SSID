@@ -25,7 +25,7 @@ else
         SCAN_TIME=$2                                                                                                                                                                                                                                                                                                                                                 
         TOTAL_ROUNDS=$3
         
-fi
+    fi
 fi
 
 
@@ -56,6 +56,7 @@ sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
 
 while [ $round -le $TOTAL_ROUNDS ]
 do
+    sudo service docker restart
     # echos current round into round.txt for uniform variable useage
     echo $round > round.txt
 
@@ -71,17 +72,17 @@ do
     sudo mkdir -p ${TCP_DIR}/${round}
 
     # start up docker containers
-    # docker-compose up --build
+    docker-compose up --build
     
     # # wait till dev1 is done 
-    # docker wait dev1
+    docker wait dev1
     echo " [*] dev1 exited"
     echo " [*] stopping & removing containers"
 
     # stop and delete all active containers
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
-    sleep 30
+    sleep 10
     # increase sleep for overnight
 
 
