@@ -1,19 +1,5 @@
 version: '3'
 services:
-  dev6:
-    container_name: dev6
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "2206:22"
-    hostname: dev6
-    volumes:
-      - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
-    stdin_open: true
-    tty: true
-              
   dev5:
     container_name: dev5
     build:
@@ -21,12 +7,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2205:22"
+      - "9995:9000"
     hostname: dev5
     volumes:
       - ${SHARED_VOLUME}:/purple/
     command: /opt/docker-internal.sh ${SCAN_TIME}
-    depends_on:
-      - dev6
     stdin_open: true
     tty: true
               
@@ -37,6 +22,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2204:22"
+      - "9994:9000"
     hostname: dev4
     volumes:
       - ${SHARED_VOLUME}:/purple/
@@ -53,6 +39,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2203:22"
+      - "9993:9000"
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME}:/purple/
@@ -69,6 +56,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2202:22"
+      - "9992:9000"
     hostname: dev2
     volumes:
       - ${SHARED_VOLUME}:/purple/
@@ -85,6 +73,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2201:22"
+      - "9991:9000"
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME}:/purple/

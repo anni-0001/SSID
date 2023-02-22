@@ -33,7 +33,9 @@ write_entry () {
     # echo '      - "220$1:"' >> docker-compose1.yml
     echo "      - \"${START_SSH_PORT}:22\"" >> $OUT
     echo "      - \"${START_TCP_PORT}:9000\"" >> $OUT
-    START_PORT=$(($START_PORT-1))
+    START_SSH_PORT=$(($START_SSH_PORT-1))
+    START_TCP_PORT=$(($START_TCP_PORT-1))
+
     echo "    hostname: dev$1" >> $OUT
     echo "    volumes:" >> $OUT
     echo "      - \${SHARED_VOLUME}:/purple/" >> $OUT
