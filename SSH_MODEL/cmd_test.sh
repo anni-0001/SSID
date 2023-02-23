@@ -6,18 +6,24 @@ shopt -s expand_aliases
 
 # attacker_send=30
 victim_send=45
-# p_sleep=$(( $RANDOM % 15 + 1 ))
+p_sleep=$(( $RANDOM % 15 + 1 ))
 n_rounds=$(( $RANDOM % 10 + 1 ))
-# cmdround=10
-s_attacker=30
-r _victim=20
+cmdround=10
+s=30
+s_attacker=""
+r_victim=20
+
+# creating arbitrary attacker send string
+for ((z=1; z<=s-19; z ++)); do
+    s_attacker+="1"
+done
 
 for ((x=1; x<=cmdround; x++));do
     n_rounds=$(( $RANDOM % 10 + 1 ))
 
     # echo "attacker side command: $x"
     # tmux send-keys -t mySession.1 "n=$n_round; a"
-    n=$n_rounds; a
+    n=$n_rounds; a; $s_attacker 2>/dev/null
     sleep $p_sleep
 done
 

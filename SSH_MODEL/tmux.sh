@@ -31,22 +31,16 @@ p_sleep=$(( $RANDOM % 15 + 1 ))
 n_rounds=$(( $RANDOM % 10 + 1 ))
 
 devices=$(cat /purple/version3/dev-num.txt)
-cmdround=1
+cmdround=10
 port=22
-
-
-
 
 echo " [*] running tmux.sh"
 
-sleep 5
 
 tmux new -d -s mySession
-
-sleep 3
-
 # Split the window horizontally into two panes
 tmux split-window -h
+sleep 5
 
 # initiating tcpdump packet capture 
 tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
@@ -72,11 +66,30 @@ tmux send-keys -t mySession.1 "$sshtunnel" Enter
 tmux a -t mySession
 tmux d -t mySession
 
+cmdround=10
+s=30
+s_attacker=""
+r_victim=20
+
+# creating arbitrary attacker send string
+for ((z=1; z<=s-19; z ++)); do
+    s_attacker+="1"
+done
+
 for ((x=1; x<=cmdround; x++));do
-    echo "attacker side command: $x"
-    tmux send-keys -t mySession.1 "n=$n_rounds; a"
+    n_rounds=$(( $RANDOM % 10 + 1 ))
+
+    # echo "attacker side command: $x"
+    tmux send-keys -t mySession.1 "n=$n_rounds; a; $s_attacker 2>/dev/null"
+    # n=$n_rounds; a; $s_attacker 2>/dev/null
     sleep $p_sleep
 done
+
+# for ((x=1; x<=cmdround; x++));do
+#     echo "attacker side command: $x"
+#     tmux send-keys -t mySession.1 "n=$n_rounds; a"
+#     sleep $p_sleep
+# done
 
 
 echo " [*] reattatching to session tmux"
