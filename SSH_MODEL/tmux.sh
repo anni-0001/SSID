@@ -25,7 +25,7 @@ shopt -s expand_aliases
 
 # ** placeholder values for random sample from Clares data **
 
-attacker_send=30
+s_attacker=30
 victim_send=45
 p_sleep=$(( $RANDOM % 15 + 1 ))
 n_rounds=$(( $RANDOM % 10 + 1 ))
