@@ -1,19 +1,5 @@
 version: '3'
 services:
-  dev6:
-    container_name: dev6
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "2206:22"
-    hostname: dev6
-    volumes:
-      - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
-    stdin_open: true
-    tty: true
-              
   dev5:
     container_name: dev5
     build:
@@ -25,8 +11,6 @@ services:
     volumes:
       - ${SHARED_VOLUME}:/purple/
     command: /opt/docker-internal.sh ${SCAN_TIME}
-    depends_on:
-      - dev6
     stdin_open: true
     tty: true
               

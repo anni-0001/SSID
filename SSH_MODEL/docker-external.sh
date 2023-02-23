@@ -2,8 +2,8 @@
 TOTAL_ROUNDS=2 
 SCAN_TIME=300
 devices=4
-TCP_DIR=/home/amc1100/Documents/research/SSID/tcpdump
-VERSION_DIR=version3
+TCP_DIR=/home/amc1100/Documents/research/SSID/SSH_MODEL/tcpdump
+VERSION_DIR=SSH_MODEL
 
 round=1
 # look into building standard docker image
