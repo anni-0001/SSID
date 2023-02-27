@@ -85,12 +85,6 @@ for ((x=1; x<=cmdround; x++));do
     sleep $p_sleep
 done
 
-# for ((x=1; x<=cmdround; x++));do
-#     echo "attacker side command: $x"
-#     tmux send-keys -t mySession.1 "n=$n_rounds; a"
-#     sleep $p_sleep
-# done
-
 
 echo " [*] reattatching to session tmux"
 tmux a -t mySession

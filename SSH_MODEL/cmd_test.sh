@@ -13,7 +13,7 @@ s=30
 s_attacker=""
 r_victim=20
 
-# creating arbitrary attacker send string
+# creating arbitrary attacker send string; 19 is extra bytes from spaces & ;
 for ((z=1; z<=s-19; z ++)); do
     s_attacker+="1"
 done

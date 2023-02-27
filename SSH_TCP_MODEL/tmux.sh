@@ -51,22 +51,17 @@ echo " [*] Starting pcap capture..."
 
 sleep 5
 
-devices=$(cat /purple/SSH_TCP_MODEL/dev-num.txt)
-
-tcp_chain=$(( $RANDOM % $devices + 1 ))
+devices=$(cat /purple/version3/dev-num.txt)
 
 # initiating ssh tunnel
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
 sleep 10
 
-ssh_tcp_tunnel=" "
+sshtunnel=" "
 for ((i=2; i<=devices; i++)); do
-    # if [ $i -eq tcp_chain ]; then
-    #     ssh_tcp_tunnel+="ssh -L "
-
-    # else
-    ssh_tcp_tunnel+="ssh -A -t -p $port root@dev$i "
+# tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev$i "
+sshtunnel+="ssh -A -t -p $port root@dev$i "
 done 
 
 
