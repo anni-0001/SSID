@@ -37,15 +37,19 @@ sleep 5
 
 devices=$(cat /purple/version3/dev-num.txt)
 
+rand_tcp_chain=$((RANDOM % (devices-1) + 1))
+
 # initiating ssh tunnel
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
 sleep 10
 
-sshtunnel=" "
+ssh_TCP_tunnel=" "
 for ((i=2; i<=devices; i++)); do
+    if[ "$i" == "$rand_tcp_chain" ]; then
+        ssh_TCP_tunnel+=
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev$i "
-sshtunnel+="ssh -A -t -p $port root@dev$i "
+    ssh_TCP_tunnel+=" "
 done 
 
 tmux send-keys -t mySession.1 "$sshtunnel" Enter
