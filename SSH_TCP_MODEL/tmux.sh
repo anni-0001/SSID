@@ -13,13 +13,29 @@ fi
 
 service ssh restart
 
+# Accessing aliases to use in script
+cat ~/.bashrc > myalias.txt
+source myalias.txt 
+shopt -s expand_aliases
+
+
+# n = n, number of “commands”/bursts of traffic (e.g., number of times to loop)
+# attacker_send = s, number of characters to send by the attacker (for the current command)
+# victim_send = r, number of characters to send by the victim machine (for the current command)
+# sleep_cmd = p, time to sleep before starting the next command in the loop
+
+# ** placeholder values for random sample from Clares data **
+
+s_attacker=30
+victim_send=45
+p_sleep=$(( $RANDOM % 15 + 1 ))
+n_rounds=$(( $RANDOM % 10 + 1 ))
+
 
 cmdround=1
 port=22
 echo " [*] running tmux.sh"
 
-# safety sleep?
-sleep 5
 
 tmux new -d -s mySession
 # tmux new -s mySession
@@ -30,25 +46,37 @@ sleep 3
 tmux split-window -h
 
 # initiating tcpdump packet capture 
-tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.0 "timeout $scan_time tcpdump -i eth0 -U -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
 echo " [*] Starting pcap capture..."
 
 sleep 5
 
-devices=$(cat /purple/version3/dev-num.txt)
+devices=$(cat /purple/SSH_TCP_MODEL/dev-num.txt)
+
+tcp_chain=$(( $RANDOM % $devices + 1 ))
 
 # initiating ssh tunnel
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
 sleep 10
 
-sshtunnel=" "
+ssh_tcp_tunnel=" "
 for ((i=2; i<=devices; i++)); do
-# tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev$i "
-sshtunnel+="ssh -A -t -p $port root@dev$i "
+    # if [ $i -eq tcp_chain ]; then
+    #     ssh_tcp_tunnel+="ssh -L "
+
+    # else
+    ssh_tcp_tunnel+="ssh -A -t -p $port root@dev$i "
 done 
 
-tmux send-keys -t mySession.1 "$sshtunnel" Enter
+
+
+# creating arbitrary attacker send string; 19 is extra bytes from spaces & ;
+for ((z=1; z<=s-19; z ++)); do
+    s_attacker+="1"
+done
+
+tmux send-keys -t mySession.1 "$ssh_tcp_tunnel" Enter
 # tmux session managementy
 tmux a -t mySession
 tmux d -t mySession

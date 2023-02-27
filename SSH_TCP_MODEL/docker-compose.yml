@@ -1,20 +1,5 @@
 version: '3'
 services:
-  dev5:
-    container_name: dev5
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "2205:22"
-      - "9995:9000"
-    hostname: dev5
-    volumes:
-      - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
-    stdin_open: true
-    tty: true
-              
   dev4:
     container_name: dev4
     build:
@@ -26,9 +11,9 @@ services:
     hostname: dev4
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
-    depends_on:
-      - dev5
+    # command: /opt/docker-internal.sh ${SCAN_TIME}
+    command: sleep 10000
+
     stdin_open: true
     tty: true
               
@@ -43,7 +28,9 @@ services:
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: /opt/docker-internal.sh ${SCAN_TIME}
+    command: sleep 10000
+
     depends_on:
       - dev4
     stdin_open: true
@@ -60,7 +47,9 @@ services:
     hostname: dev2
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: /opt/docker-internal.sh ${SCAN_TIME}
+    command: sleep 10000
+
     depends_on:
       - dev3
     stdin_open: true
@@ -77,7 +66,8 @@ services:
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME}:/purple/
-    command: /opt/docker-internal.sh ${SCAN_TIME}
+    # command: /opt/docker-internal.sh ${SCAN_TIME}
+    command: sleep 10000
     depends_on:
       - dev2
     stdin_open: true

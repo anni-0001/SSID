@@ -2,7 +2,7 @@
 TOTAL_ROUNDS=2 
 SCAN_TIME=300
 devices=4
-TCP_DIR=/home/amc1100/Documents/research/SSID/tcpdump
+TCP_DIR=/home/amc1100/Documents/research/SSID/SSH_TCP_MODEL/tcpdump
 VERSION_DIR=version3
 
 round=1
