@@ -3,8 +3,8 @@
 # hard-coded params
 FALL_BACK_SCAN_TIME=500
 RT_DIR="/purple/SSH_TCP_MODEL"
-TCP_DIR="/purple/tcpdump"
-experiment_num=$(cat /purple/version3/round.txt)
+TCP_DIR="/purple/SSH_TCP_MODEL/tcpdump"
+experiment_num=$(cat /purple/SSH_TCP_MODEL/round.txt)
 
 if [ $2 ]
 then
