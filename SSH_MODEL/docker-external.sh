@@ -11,7 +11,8 @@ round=1
 if [ $# -eq 0 ]; then 
 
     echo " "
-    read -p "Enter number of devices: " devices
+    # read -p "Enter min number of devices: " min_devices
+    read -p "Enter max number of devices: " max_devices
     read -p "Enter scan duration in seconds: " SCAN_TIME
     read -p "Enter experiment rounds: " TOTAL_ROUNDS
 else 
@@ -21,12 +22,14 @@ else
         SCAN_TIME=300
         devices=4
     else
-        devices=$1
-        SCAN_TIME=$2                                                                                                                                                                                                                                                                                                                                                 
-        TOTAL_ROUNDS=$3
-        
+        # min_devices=
+        max_devices=$1
+        SCAN_TIME=$2                                                                                                                                                                                                                                                                                                                                              
+        TOTAL_ROUNDS=$3        
     fi
 fi
+
+# devices=p_sleep=$(( $RANDOM % $max_devices + 4 ))
 
 
 # configutaions for:
@@ -41,15 +44,11 @@ echo ""
 echo "CONFIGURATIONS"
 echo "Rounds: $TOTAL_ROUNDS"
 echo "SCAN_TIME: $SCAN_TIME"
-echo "Device Number: $devices"
+echo "Device Number Range: 4 - $max_devices"
 echo ""
 sleep 15
 
-# creates uniform device number/ central value for all dependent files
-echo $devices > dev-num.txt
 
-# creates automated docker-compose.yml
-bash compose-bash.sh $devices
 
 # makes uniform scan_time vars in .env for all experiements
 sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
@@ -57,13 +56,20 @@ sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
 while [ $round -le $TOTAL_ROUNDS ]
 do
     sudo service docker restart
+
+
+    # devices=$(( $RANDOM % $max_devices + 4 ))
+    devices=$(shuf -i 4-$max_devices -n 1)
+
     # echos current round into round.txt for uniform variable useage
     echo $round > round.txt
 
-    # create docker-compose.yml script
-    #   arg1: count of stepping-stone devices
-    bash compose-bash.sh $devices
+    # creates uniform device number/ central value for all dependent files
+    echo $devices > dev-num.txt
 
+    # creates automated docker-compose.yml
+    bash compose-bash.sh $devices
+    
     echo " [*] Running round $round..."
    
     # create exp tcpdump dir

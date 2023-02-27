@@ -30,7 +30,7 @@ victim_send=45
 p_sleep=$(( $RANDOM % 15 + 1 ))
 n_rounds=$(( $RANDOM % 10 + 1 ))
 
-devices=$(cat /purple/version3/dev-num.txt)
+devices=$(cat /purple/SSH_MODEL/dev-num.txt)
 cmdround=10
 port=22
 
@@ -43,7 +43,7 @@ tmux split-window -h
 sleep 5
 
 # initiating tcpdump packet capture 
-tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/tcpdump/$experiment_num/$HOSTNAME.pcap" Enter
+tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/SSH_MODEL/tcpdump/$experiment_num/dev1.pcap" Enter
 echo " [*] Starting pcap capture..."
 
 sleep 5

@@ -14,10 +14,10 @@ else
 fi
 
 dev_num=$(cat /purple/SSH_MODEL/dev-num.txt)
-echo $dev_num
+# echo $dev_num
 
 service ssh restart
-echo "alias dev: dev$dev_num"
+# echo "alias dev: dev$dev_num"
 
 if [ "$HOSTNAME" == "dev1" ]; then
     echo " [*] Running tmux.sh on $HOSTNAME"
