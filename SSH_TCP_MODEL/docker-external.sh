@@ -39,9 +39,10 @@ fi
 bash ssh-config.sh $devices
 echo ""
 echo "CONFIGURATIONS"
-echo "Rounds: $TOTAL_ROUNDS"
-echo "SCAN_TIME: $SCAN_TIME"
 echo "Device Number: $devices"
+echo "SCAN_TIME: $SCAN_TIME"
+echo "Rounds: $TOTAL_ROUNDS"
+
 echo ""
 sleep 15
 

@@ -13,7 +13,7 @@ else
     scan_time=$FALL_BACK_SCAN_TIME   # default scantime
 fi
 
-dev_num=$(cat /purple/version3/dev-num.txt)
+dev_num=$(cat /purple/SSH_TCP_MODEL/dev-num.txt)
 echo $dev_num
 
 service ssh restart
