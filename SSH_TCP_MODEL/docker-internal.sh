@@ -16,6 +16,12 @@ fi
 dev_num=$(cat /purple/version3/dev-num.txt)
 echo $dev_num
 
+tmux new -d -s listner
+
+
+# Split the window horizontally into two panes
+tmux split-window -h
+
 service ssh restart
 echo "alias dev: dev$dev_num"
 
@@ -25,8 +31,11 @@ if [ "$HOSTNAME" == "dev1" ]; then
 elif [ "$HOSTNAME" == "dev$dev_num" ]; then
     echo 'alias a="for ((c=1; c<=n-1; c ++)); do echo -n '1'; done; echo hi"' >> ~/.bashrc
     echo " [*] Running tcpdump on $HOSTNAME"
-    timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
+    tmux send-keys -t listner.0 "nc -lnvp 9000" Enter
+    tmux send-keys -t listner.1 "timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap"
 else
     echo " [*] Running tcpdump on $HOSTNAME"
-    timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
+     tmux send-keys -t listner.0 "nc -lnvp 9000" Enter
+    tmux send-keys -t listner.1 "timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap"
+    # timeout $scan_time tcpdump  -i eth0 -U -w $TCP_DIR/$experiment_num/$HOSTNAME.pcap
 fi
