@@ -69,33 +69,36 @@ tmux d -t mySession
 
 
 
+
+
+
 # Call the Python script and capture the output into a Bash array
 output=($(python3 p_script.py))
 
 # Assign the array elements to individual Bash variables
-var1="${output[0]}"
-var2="${output[1]}"
-var3="${output[2]}"
-var4="${output[3]}"
+burst_total="${output[0]}"
+bytes_recieved="${output[1]}"
+bytes_send="${output[2]}"
+burst_sleep="${output[3]}"
 
 # Use the Bash variables in other commands
-echo "Var1: $var1"
-echo "Var2: $var2"
-echo "Var3: $var3"
-echo "Var4: $var4"
+echo "burst_total: $var1"
+echo "bytes_recieved: $var2"
+echo "bytes_send: $var3"
+echo "burst_sleep: $var4"
 
 
-
-cmdround=10
-s=30
 s_attacker=""
-r_victim=20
-n_bursts=1
+
 
 # creating arbitrary attacker send string
-for ((z=1; z<=s-19; z ++)); do
+for ((z=1; z<=bytes_send-19; z ++)); do
     s_attacker+="1"
 done
+
+for x in range [burst_total]:
+    n=$bytes_recieved; a; $s_attacker 2>/dev/null
+
 
 # create function that takes random value 
 # python script samples all values and generates cmd as result of script

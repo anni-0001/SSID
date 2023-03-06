@@ -20,6 +20,8 @@ service ssh restart
 # echo "alias dev: dev$dev_num"
 
 
+# netem starting with a random dely between 15 and 35
+tc qdisc add dev eth0 root handle 1:0 netem delay 25ms 10ms
 
 
 if [ "$HOSTNAME" == "dev1" ]; then
