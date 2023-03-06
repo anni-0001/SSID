@@ -1,6 +1,7 @@
 import random
 import pickle
 import csv
+import subprocess
 # import scapy
 
 # Load the pkl file
@@ -29,10 +30,11 @@ with open('data/time_between_bursts.csv', 'r') as d:
 print(time_between_bursts)
 
 
-# with open('data/time_between_bursts.pkl', 'rb') as d:
-#     time_between=pickle.load(d)
-# time_between_bursts=random.choice(time_between)
-# print(bytes_sent)
+# for i in range(burst_total):
+
+
+
+
 
 # with open('/Users/annika/Documents/SSID/SSH_MODEL/data/time_between_bursts.pkl', 'rb') as e:
 #     bursts=pickle.load(e)
