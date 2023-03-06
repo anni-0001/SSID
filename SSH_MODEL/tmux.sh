@@ -70,13 +70,23 @@ cmdround=10
 s=30
 s_attacker=""
 r_victim=20
+n_bursts=1
 
 # creating arbitrary attacker send string
 for ((z=1; z<=s-19; z ++)); do
     s_attacker+="1"
 done
 
-for ((x=1; x<=cmdround; x++));do
+# create function that takes random value 
+# python script samples all values and generates cmd as result of script
+# cmd = python cmd.py
+
+# add latency
+
+# reverse shell, file exfil, uneven send & recieves
+# look at samples, spin up crawler on multi machine
+
+for ((x=1; x<=n_bursts; x++));do
     n_rounds=$(( $RANDOM % 10 + 1 ))
 
     # echo "attacker side command: $x"
@@ -84,6 +94,8 @@ for ((x=1; x<=cmdround; x++));do
     # n=$n_rounds; a; $s_attacker 2>/dev/null
     sleep $p_sleep
 done
+
+# for i in 
 
 
 echo " [*] reattatching to session tmux"
