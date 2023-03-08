@@ -15,7 +15,7 @@ scan_time=$3
 
 START_PORT=220$z
 echo $START_PORT
-SHARED_VOLUME_HOME=$SHARED_VOLUME:/purple/
+SHARED_VOLUME_HOME=$SHARED_VOLUME_HOME:/purple/
 OUT=docker-compose.yml
 
 # Create the docker-compose.yml file
@@ -34,8 +34,8 @@ write_entry () {
     START_PORT=$(($START_PORT-1))
     echo "    hostname: dev$1" >> $OUT
     echo "    volumes:" >> $OUT
-    echo "      - \${SHARED_VOLUME}:/purple/" >> $OUT
-    echo "    command: /opt/docker-internal.sh \${SCAN_TIME}" >> $OUT
+    echo "      - \${SHARED_VOLUME_HOME}:/purple/" >> $OUT
+    echo "    command: /opt/docker-internal.sh \$${SCAN_TIME}" >> $OUT
     if [ $2 ]; then
         echo "    depends_on:" >> $OUT
         echo "      - dev$2" >> $OUT

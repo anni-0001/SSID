@@ -2,7 +2,8 @@
 TOTAL_ROUNDS=2 
 SCAN_TIME=300
 devices=4
-TCP_DIR=/home/amc1100/Documents/research/SSID/SSH_MODEL/tcpdump
+# TCP_DIR=/home/amc1100/Documents/research/SSID/SSH_MODEL/tcpdump
+TCP_DIR=/Users/annika/Documents/SSID/SSH_MODEL/tcpdump
 VERSION_DIR=SSH_MODEL
 
 round=1
@@ -51,7 +52,7 @@ sleep 15
 
 
 # makes uniform scan_time vars in .env for all experiements
-sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
+# sed -i "1c\\SCAN_TIME=$SCAN_TIME" .env
 
 while [ $round -le $TOTAL_ROUNDS ]
 do

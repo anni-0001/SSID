@@ -21,8 +21,6 @@ echo "bytes_send: $bytes_send"
 echo "burst_sleep: $burst_sleep"
 
 s_attacker=""
-r_victim=20
-n_bursts=1
 
 # creating arbitrary attacker send string
 for ((z=1; z<=bytes_send-19; z ++)); do
@@ -32,7 +30,7 @@ done
 
 for((b=1; b <=burst_total; b++)); do
     # put into tmux send keys:
-    n=$bytes_recieved; a; echo $s_attacker
+    tmux sendkeys -t mySession 'n=$bytes_recieved; a; echo $s_attacker'
     sleep $burst_sleep
 
 done 
