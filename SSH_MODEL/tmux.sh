@@ -25,17 +25,13 @@ shopt -s expand_aliases
 
 # ** placeholder values for random sample from Clares data **
 
-s_attacker=30
-victim_send=45
-p_sleep=$(( $RANDOM % 15 + 1 ))
-n_rounds=$(( $RANDOM % 10 + 1 ))
+# s_attacker=30
+# victim_send=45
+# p_sleep=$(( $RANDOM % 15 + 1 ))
+# n_rounds=$(( $RANDOM % 10 + 1 ))
 
 devices=$(cat /purple/SSH_MODEL/dev-num.txt)
-cmdround=10
-port=22
-
 echo " [*] running tmux.sh"
-
 
 tmux new -d -s mySession
 # Split the window horizontally into two panes
@@ -55,19 +51,15 @@ sleep 10
 
 sshtunnel=" "
 for ((i=2; i<=devices-1; i++)); do
-    sshtunnel+="ssh -A -t -p $port root@dev$i "
+    sshtunnel+="ssh -A -t -p $port root@dev$i"
 done 
 
 tcptunnel=$sshtunnel
 tmux send-keys -t mySession.1 "$sshtunnel" Enter
 
-
 # tmux session management
 tmux a -t mySession
 tmux d -t mySession
-
-
-#!/bin/bash
 
 # Accessing aliases to use in script
 cat ~/.bashrc > myalias.txt
@@ -96,40 +88,17 @@ for ((z=1; z<=bytes_send-19; z ++)); do
     s_attacker+="x"
 done
 
-
 for((b=1; b <=burst_total; b++)); do
     # put into tmux send keys:
-    tmux send-keys -t mySession.1 'n=$bytes_recieved; a; echo $s_attacker'
+    tmux send-keys -t mySession.1 'n=$bytes_recieved; a; echo $s_attacker 2>/dev/null' Enter
     sleep $burst_sleep
 
-done 
-
-
+done
 
 
 # # Call the Python script and capture the output into a Bash array
 # output=($(python3 p_script.py))
 
-# # Assign the array elements to individual Bash variables
-# burst_total="${output[0]}"
-# bytes_recieved="${output[1]}"
-# bytes_send="${output[2]}"
-# burst_sleep="${output[3]}"
-
-# # Use the Bash variables in other commands
-# echo "burst_total: $var1"
-# echo "bytes_recieved: $var2"
-# echo "bytes_send: $var3"
-# echo "burst_sleep: $var4"
-
-
-# s_attacker=""
-
-
-# # creating arbitrary attacker send string
-# for ((z=1; z<=bytes_send-19; z ++)); do
-#     s_attacker+="1"
-# done
 
 for x in range [burst_total]:
     n=$bytes_recieved; a; $s_attacker 2>/dev/null
@@ -154,12 +123,6 @@ for x in range [burst_total]:
 # done
 
 # for i in 
-
-
-
-
-
-
 
 
 

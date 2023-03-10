@@ -43,6 +43,8 @@ write_entry () {
     echo "    stdin_open: true" >> $OUT
     echo "    tty: true" >> $OUT
     echo "              " >> $OUT
+    echo "    cap_add:" >> $OUT
+    echo "      - NET_ADMIN" >> $OUT
 }
 
 # Write target (victim) host w/ no dependency
