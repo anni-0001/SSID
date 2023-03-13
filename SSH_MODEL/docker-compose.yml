@@ -14,9 +14,10 @@ services:
     stdin_open: true
     tty: true
               
-    cap_add:
-      - NET_ADMIN
     privileged: true
+    networks:
+      SSID1:
+        ipv4_address: 10.10.5.2
   dev2:
     container_name: dev2
     build:
@@ -33,9 +34,10 @@ services:
     stdin_open: true
     tty: true
               
-    cap_add:
-      - NET_ADMIN
     privileged: true
+    networks:
+      SSID1:
+        ipv4_address: 10.10.5.3
   dev1:
     container_name: dev1
     build:
@@ -52,9 +54,13 @@ services:
     stdin_open: true
     tty: true
               
-    cap_add:
-      - NET_ADMIN
     privileged: true
+    networks:
+      SSID1:
+        ipv4_address: 10.10.5.4
 networks:
   SSID1:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.5.0/24

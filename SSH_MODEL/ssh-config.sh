@@ -4,7 +4,8 @@ devices=$1
 echo $devices
 sshfile=config
 # start_ip=172.20.0.2
-start_ip=$(($devices+2))
+start_ip=$(($devices+1))
+# start_ip=2
 # need to reserve 172.18.0.0,1 in config ips ssh
 # 
 echo " " > $sshfile
@@ -15,7 +16,7 @@ for((i=1; i<=devices; i++)); do
 
     echo "Host dev$i" >> $sshfile
     # echo "Hostname 172.18.0.$ip" >> $sshfile
-    echo "Hostname 172.22.0.$start_ip" >> $sshfile
+    echo "Hostname 10.10.5.$start_ip" >> $sshfile
     echo "StrictHostKeyChecking no" >> $sshfile
     echo "IdentityFile ~/.ssh/id_rsa" >> $sshfile
     echo "UserKnownHostsFile=/dev/null" >> $sshfile

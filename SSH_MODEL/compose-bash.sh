@@ -45,16 +45,15 @@ write_entry () {
     echo "    stdin_open: true" >> $OUT
     echo "    tty: true" >> $OUT
     echo "              " >> $OUT
-    echo "    cap_add:" >> $OUT
-    echo "      - NET_ADMIN" >> $OUT
+
     echo "    privileged: true" >> $OUT
-    # echo "    timeout: 300" >> $OUT
-    # echo "    mem_limit: 2g" >> $OUT
-    # echo "    mem_reservation: 1g" >> $OUT
-    # echo "    timeout: 300" >> $OUT
+    echo "    networks:" >> $OUT
+    echo "      SSID1:" >> $OUT
+    echo "        ipv4_address: 10.10.5.$start_ip" >>$OUT
     # echo "    networks: " >> $OUT
     # echo "      SSID1:" >> $OUT
     # echo "        ipv4_address: 10.10.5.$start_ip" >> $OUT
+    # start_ip=$((start_ip +1))
 
 
 }
@@ -64,9 +63,10 @@ write_entry $z
 # Write Stepping-stone hosts & attacker (all depending on prior host)
 for ((i=z-1; i>0; i--))
 do
+    start_ip=$((start_ip +1))
     j=$(($i+1))
     write_entry $i $j
-    start_ip=$((start_ip +1))
+    
 done
 # echo "networks:" >> $OUT
 # echo "  default:" >> $OUT
@@ -77,7 +77,6 @@ done
 echo "networks:" >> $OUT
 echo "  SSID1:" >>$OUT
 echo "    driver: bridge" >>$OUT
-# echo "    ipam:" >> $OUT
-# echo "      config:" >> $OUT
-# echo "        - subnet: 10.10.5.0/24" >> $OUT
-# echo "          gateway: 10.10.5.254" >> $OUT
+echo "    ipam:" >> $OUT
+echo "      config:" >> $OUT
+echo "        - subnet: 10.10.5.0/24" >> $OUT

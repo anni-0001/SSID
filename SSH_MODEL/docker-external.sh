@@ -44,7 +44,7 @@ echo ""
 echo "CONFIGURATIONS"
 echo "Rounds: $TOTAL_ROUNDS"
 echo "SCAN_TIME: $SCAN_TIME"
-echo "Device Number Range: 4 - $max_devices"
+echo "Device Number Range: 2 - $max_devices"
 echo ""
 sleep 5
 
@@ -86,13 +86,14 @@ do
     
     # # wait till dev1 is done 
     docker wait dev1
+    sleep 10
     echo " [*] dev1 exited"
     echo " [*] stopping & removing containers"
 
     # stop and delete all active containers
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
-    sleep 10
+    sleep 3
     # increase sleep for overnight
 
 

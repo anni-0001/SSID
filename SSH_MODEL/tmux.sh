@@ -28,12 +28,7 @@ shopt -s expand_aliases
 # victim_send = r, number of characters to send by the victim machine (for the current command)
 # sleep_cmd = p, time to sleep before starting the next command in the loop
 
-# ** placeholder values for random sample from Clares data **
 
-# s_attacker=30
-# victim_send=45
-# p_sleep=$(( $RANDOM % 15 + 1 ))
-# n_rounds=$(( $RANDOM % 10 + 1 ))
 
 devices=$(cat $RT_DIR/purple/dev-num.txt)
 echo " [*] running tmux.sh"
@@ -55,11 +50,12 @@ echo " [*] Building tunnel..."
 # sleep 10
 
 sshtunnel=" "
-for ((i=2; i<=devices-1; i++)); do
+
+for ((i=2; i<=devices; i++)); do
     sshtunnel+="ssh -A -t -p 22 root@dev$i "
 done 
 
-tcptunnel=$sshtunnel
+# tcptunnel=$sshtunnel
 tmux send-keys -t mySession.1 "$sshtunnel" Enter
 
 # tmux session management
@@ -117,7 +113,7 @@ done
 
 
 # echo " [*] reattatching to session tmux"
-# tmux a -t mySession
+tmux a -t mySession
 echo " [*] killing tmux session"
 tmux kill-session -t mySession
 
