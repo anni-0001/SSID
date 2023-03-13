@@ -6,6 +6,7 @@ z=$(($1))
 echo $z
 experiment_num=$2
 scan_time=$3
+start_ip=2
 
 # if [ $4 ]; then
 #     SHARED_VOLUME=$4
@@ -34,7 +35,7 @@ write_entry () {
     START_PORT=$(($START_PORT-1))
     echo "    hostname: dev$1" >> $OUT
     echo "    volumes:" >> $OUT
-    echo "      - \${SHARED_VOLUME_HOME}:/purple/" >> $OUT
+    echo "      - \${SHARED_VOLUME_HOME}:/home/ubuntu/purple/" >> $OUT
     echo "    command: /opt/docker-internal.sh \$${SCAN_TIME}" >> $OUT
     if [ $2 ]; then
         echo "    depends_on:" >> $OUT
@@ -45,6 +46,15 @@ write_entry () {
     echo "              " >> $OUT
     echo "    cap_add:" >> $OUT
     echo "      - NET_ADMIN" >> $OUT
+    echo "    privileged: true" >> $OUT
+    # echo "    mem_limit: 2g" >> $OUT
+    # echo "    mem_reservation: 1g" >> $OUT
+    # echo "    timeout: 300" >> $OUT
+    # echo "    networks: " >> $OUT
+    # echo "      SSID1:" >> $OUT
+    # echo "        ipv4_address: 10.10.5.$start_ip" >> $OUT
+
+
 }
 
 # Write target (victim) host w/ no dependency
@@ -54,8 +64,18 @@ for ((i=z-1; i>0; i--))
 do
     j=$(($i+1))
     write_entry $i $j
+    start_ip=$((start_ip +1))
 done
+# echo "networks:" >> $OUT
+# echo "  default:" >> $OUT
+# echo "      name: SSID1" >> $OUT
+# echo "      external: true" >> $OUT
+# echo "        ipam:" >> $OUT
+
 echo "networks:" >> $OUT
-echo "  default:" >> $OUT
-echo "      name: SSID1" >> $OUT
-echo "      external: true" >> $OUT
+echo "  SSID1:" >>$OUT
+echo "    driver: bridge" >>$OUT
+# echo "    ipam:" >> $OUT
+# echo "      config:" >> $OUT
+# echo "        - subnet: 10.10.5.0/24" >> $OUT
+# echo "          gateway: 10.10.5.254" >> $OUT

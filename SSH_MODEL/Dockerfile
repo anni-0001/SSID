@@ -3,6 +3,7 @@ FROM ubuntu
 
 RUN apt update && apt install openssh-server sudo iproute2 python3 coreutils sshpass tcpdump vim tmux tmuxinator netcat pip docker net-tools -y
 RUN pip install paramiko
+
 # ---------user configuration
 RUN echo 'root:password' | chpasswd
 RUN passwd -d root
@@ -33,6 +34,8 @@ COPY cmd.txt /opt/
 COPY docker-internal.sh /opt/
 RUN chmod +x /opt/docker-internal.sh
 #CMD ["/opt/docker-internal.sh"]
+# COPY /tcpdump/ /tmp/tcpdump
+# RUN chmod -R 777 /purple/
 
 
 # commands to build containers:

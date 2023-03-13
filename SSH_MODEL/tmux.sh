@@ -11,6 +11,11 @@ else
     scan_time=200
 fi
 
+RT_DIR="/home/ubuntu"
+experiment_num=$(cat $RT_DIR/purple/round.txt)
+dev_num=$(cat $RT_DIR/purple/dev-num.txt)
+
+
 service ssh restart
 
 # Accessing aliases to use in script
@@ -30,7 +35,7 @@ shopt -s expand_aliases
 # p_sleep=$(( $RANDOM % 15 + 1 ))
 # n_rounds=$(( $RANDOM % 10 + 1 ))
 
-devices=$(cat /purple/SSH_MODEL/dev-num.txt)
+devices=$(cat $RT_DIR/purple/dev-num.txt)
 echo " [*] running tmux.sh"
 
 tmux new -d -s mySession
@@ -39,7 +44,7 @@ tmux split-window -h
 sleep 5
 
 # initiating tcpdump packet capture 
-tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w /purple/SSH_MODEL/tcpdump/$experiment_num/dev1.pcap" Enter
+tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w $RT_DIR/purple/tcpdump/$experiment_num/dev1.pcap" Enter
 echo " [*] Starting pcap capture..."
 
 sleep 5
@@ -47,11 +52,11 @@ sleep 5
 # initiating ssh tunnel
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
-sleep 10
+# sleep 10
 
 sshtunnel=" "
 for ((i=2; i<=devices-1; i++)); do
-    sshtunnel+="ssh -A -t -p $port root@dev$i"
+    sshtunnel+="ssh -A -t -p $port root@dev$i "
 done 
 
 tcptunnel=$sshtunnel
@@ -100,36 +105,19 @@ done
 # output=($(python3 p_script.py))
 
 
-for x in range [burst_total]:
-    n=$bytes_recieved; a; $s_attacker 2>/dev/null
 
-
-# create function that takes random value 
-# python script samples all values and generates cmd as result of script
-# cmd = python cmd.py
 
 # add latency
 
 # reverse shell, file exfil, uneven send & recieves
 # look at samples, spin up crawler on multi machine
 
-# for ((x=1; x<=n_bursts; x++));do
-#     n_rounds=$(( $RANDOM % 10 + 1 ))
-
-#     # echo "attacker side command: $x"
-#     tmux send-keys -t mySession.1 "n=$n_rounds; a; $s_attacker 2>/dev/null"
-#     # n=$n_rounds; a; $s_attacker 2>/dev/null
-#     sleep $p_sleep
-# done
-
-# for i in 
 
 
 
 
-
-echo " [*] reattatching to session tmux"
-tmux a -t mySession
+# echo " [*] reattatching to session tmux"
+# tmux a -t mySession
 echo " [*] killing tmux session"
 tmux kill-session -t mySession
 

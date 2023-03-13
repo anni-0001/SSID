@@ -60,7 +60,7 @@ do
 
 
     # devices=$(( $RANDOM % $max_devices + 4 ))
-    devices=$(shuf -i 4-$max_devices -n 1)
+    devices=$(shuf -i 2-$max_devices -n 1)
 
     # echos current round into round.txt for uniform variable useage
     echo $round > round.txt
@@ -76,7 +76,9 @@ do
     # create exp tcpdump dir
 
     echo " [*] making directory: $round"
-    sudo mkdir -p ${TCP_DIR}/${round}
+    mkdir -p ${TCP_DIR}/${round}
+    chmod 777 ${TCP_DIR}/${round}
+
 
     # start up docker containers
     docker-compose up --build
