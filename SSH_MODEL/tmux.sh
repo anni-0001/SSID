@@ -41,13 +41,13 @@ echo " [*] running tmux.sh"
 tmux new -d -s mySession
 # Split the window horizontally into two panes
 tmux split-window -h
-sleep 5
+# sleep 5
 
 # initiating tcpdump packet capture 
 tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w $RT_DIR/purple/tcpdump/$experiment_num/dev1.pcap" Enter
 echo " [*] Starting pcap capture..."
 
-sleep 5
+# sleep 5
 
 # initiating ssh tunnel
 # tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
