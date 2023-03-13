@@ -18,7 +18,7 @@ dev_num=$(cat $RT_DIR/purple/dev-num.txt)
 
 # echo "ifconfig eth0 | grep 'inet ' | cut -d: -f2 | awk '{print $1}'"
 ip=($(/sbin/ifconfig eth0| grep 'inet '))
-eth0=$ip[2]
+eth0=${ip[2]}
 echo "[*] $HOSTNAME : $eth0"
 
 service ssh restart

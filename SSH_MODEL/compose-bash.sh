@@ -3,7 +3,8 @@
 # initalize variables
 # z=$(($1+2))
 z=$(($1))
-echo $z
+# z=$1
+# echo $z
 experiment_num=$2
 scan_time=$3
 start_ip=2
@@ -15,7 +16,7 @@ start_ip=2
 # fi
 
 START_PORT=220$z
-echo $START_PORT
+# echo $START_PORT
 SHARED_VOLUME_HOME=$SHARED_VOLUME_HOME:/purple/
 OUT=docker-compose.yml
 
@@ -47,6 +48,7 @@ write_entry () {
     echo "    cap_add:" >> $OUT
     echo "      - NET_ADMIN" >> $OUT
     echo "    privileged: true" >> $OUT
+    # echo "    timeout: 300" >> $OUT
     # echo "    mem_limit: 2g" >> $OUT
     # echo "    mem_reservation: 1g" >> $OUT
     # echo "    timeout: 300" >> $OUT

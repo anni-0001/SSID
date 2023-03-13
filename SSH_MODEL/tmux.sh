@@ -56,7 +56,7 @@ echo " [*] Building tunnel..."
 
 sshtunnel=" "
 for ((i=2; i<=devices-1; i++)); do
-    sshtunnel+="ssh -A -t -p $port root@dev$i "
+    sshtunnel+="ssh -A -t -p 22 root@dev$i "
 done 
 
 tcptunnel=$sshtunnel

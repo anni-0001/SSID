@@ -4,7 +4,7 @@ devices=$1
 echo $devices
 sshfile=config
 # start_ip=172.20.0.2
-start_ip=2
+start_ip=$(($devices+2))
 # need to reserve 172.18.0.0,1 in config ips ssh
 # 
 echo " " > $sshfile
@@ -21,5 +21,5 @@ for((i=1; i<=devices; i++)); do
     echo "UserKnownHostsFile=/dev/null" >> $sshfile
     echo "User root" >> $sshfile
     echo " " >>$sshfile
-    start_ip=$((start_ip + 1))
+    start_ip=$((start_ip - 1))
 done

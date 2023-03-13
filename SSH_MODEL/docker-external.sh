@@ -40,14 +40,13 @@ fi
 #     - uniform SCAN_TIME
 
 # creates automated ssh config for x number of devices
-bash ssh-config.sh $devices
 echo ""
 echo "CONFIGURATIONS"
 echo "Rounds: $TOTAL_ROUNDS"
 echo "SCAN_TIME: $SCAN_TIME"
 echo "Device Number Range: 4 - $max_devices"
 echo ""
-sleep 15
+sleep 5
 
 
 
@@ -70,6 +69,8 @@ do
 
     # creates automated docker-compose.yml
     bash compose-bash.sh $devices
+    bash ssh-config.sh $devices
+
     
     echo " [*] Running round $round..."
    
