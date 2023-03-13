@@ -1,5 +1,41 @@
 version: '3'
 services:
+  dev4:
+    container_name: dev4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2204:22"
+    hostname: dev4
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh $
+    stdin_open: true
+    tty: true
+              
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+  dev3:
+    container_name: dev3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2203:22"
+    hostname: dev3
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh $
+    depends_on:
+      - dev4
+    stdin_open: true
+    tty: true
+              
+    cap_add:
+      - NET_ADMIN
+    privileged: true
   dev2:
     container_name: dev2
     build:
@@ -11,6 +47,8 @@ services:
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
     command: /opt/docker-internal.sh $
+    depends_on:
+      - dev3
     stdin_open: true
     tty: true
               
