@@ -1,5 +1,23 @@
 version: '3'
 services:
+  dev4:
+    container_name: dev4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2204:22"
+    hostname: dev4
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh $
+    stdin_open: true
+    tty: true
+              
+    privileged: true
+    networks:
+      SSID1:
+        ipv4_address: 10.10.5.2
   dev3:
     container_name: dev3
     build:
@@ -11,13 +29,15 @@ services:
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
     command: /opt/docker-internal.sh $
+    depends_on:
+      - dev4
     stdin_open: true
     tty: true
               
     privileged: true
     networks:
       SSID1:
-        ipv4_address: 10.10.5.2
+        ipv4_address: 10.10.5.3
   dev2:
     container_name: dev2
     build:
@@ -37,7 +57,7 @@ services:
     privileged: true
     networks:
       SSID1:
-        ipv4_address: 10.10.5.3
+        ipv4_address: 10.10.5.4
   dev1:
     container_name: dev1
     build:
@@ -57,7 +77,7 @@ services:
     privileged: true
     networks:
       SSID1:
-        ipv4_address: 10.10.5.4
+        ipv4_address: 10.10.5.5
 networks:
   SSID1:
     driver: bridge

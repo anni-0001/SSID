@@ -57,18 +57,20 @@ done
 
 # tcptunnel=$sshtunnel
 tmux send-keys -t mySession.1 "$sshtunnel" Enter
+echo "[*] Tunnel established"
 
-# tmux session management
-tmux a -t mySession
-tmux d -t mySession
+
+# tmux session management UNCOMMENT HERE IF TMUX/SSH STOPS WORKING
+# tmux a -t mySession
+# tmux d -t mySession
 
 # Accessing aliases to use in script
-cat ~/.bashrc > myalias.txt
-source myalias.txt 
-shopt -s expand_aliases
+# cat ~/.bashrc > myalias.txt
+# source myalias.txt 
+# shopt -s expand_aliases
 
 # Call the Python script and capture the output into a Bash array
-output=($(python3 p_script.py))
+output=($(python3 $RT_DIR/purple/p_script.py))
 
 # Assign the array elements to individual Bash variables
 burst_total="${output[0]}"
@@ -96,7 +98,9 @@ for((b=1; b <=burst_total; b++)); do
 
 done
 
-
+# seeing if commands are running
+echo "$HOSTNAME">> $RT_DIR/purple/history.txt
+history >> $RT_DIR/purple/history.txt
 # # Call the Python script and capture the output into a Bash array
 # output=($(python3 p_script.py))
 

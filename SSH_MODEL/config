@@ -1,19 +1,26 @@
  
 Host dev1
-Hostname 10.10.5.4
+Hostname 10.10.5.5
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
 Host dev2
-Hostname 10.10.5.3
+Hostname 10.10.5.4
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa
 UserKnownHostsFile=/dev/null
 User root
  
 Host dev3
+Hostname 10.10.5.3
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 
+Host dev4
 Hostname 10.10.5.2
 StrictHostKeyChecking no
 IdentityFile ~/.ssh/id_rsa

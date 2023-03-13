@@ -105,18 +105,3 @@ sleep 5
 finalround=$(cat round.txt)
 
 echo " [*] docker-external.sh finished -- $finalround experiments complete"
-
-
-
-
-
-
-# look at how to set things up for commmands
-# replace static commands - select random command - randomly sample send & recieve
-# sending dummy commands to create & send data - send 100 bytes as a command
-# want to recieve x data size
-
-# build loop to sample & identify numbers/stats we want to see - read from csv
-# pasrse from file, select random row (command), acces range entries, smaple bytes of random between 2 ranges, send command
-
-# on victim machine set up sinlge caharacter alias to bash oneliner to shorten the minimum number of bytes & fill in the rest with gibberish to fill random range

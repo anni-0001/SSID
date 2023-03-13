@@ -1,6 +1,14 @@
 # SSID-Docker
 
-This project is an improvement of previous works on Stepping Stone Intrusion Detection (SSID). Automation is the key here, with a streamlined approach relying less on python scripting and more on the powerful Docker API to spin up infrastructure for a range of experiments seamlessly.
+This project is an improvement of previous works on Stepping Stone Intrusion Detection (SSID). Automation is the focus to mantain flexibilty as well as seemless experiment integrity for each round of samples. Using Docker, this project simulates network activity as if there were stepping stone attacks occuring, all while collecting network traffic samples. 
+
+This project can create an unlimited size data set on SSID to be using for machine learning applications.
+
+# Structure
+docker-external.sh --> compose-bash.sh & ssh-config.sh --> docker-compose.yml --> docker-internal.sh --> tmux.sh
+--> = triggers script
+
+* 
 
 # Available Models
 

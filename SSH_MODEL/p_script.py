@@ -3,25 +3,27 @@ import pickle
 import csv
 import subprocess
 # import scapy
+RT_DIR="/home/ubuntu"
+DATA_DIR="/home/ubuntu/purple/data/"
 
 # Load the pkl file
-with open('data/bursts_total.pkl', 'rb') as a:
+with open(f"{DATA_DIR}bursts_total.pkl", 'rb') as a:
     bursts = pickle.load(a)
 # Sample a random data point
 burst_total = random.choice(bursts)
 print(burst_total)
 
-with open('data/bytes_received.pkl', 'rb') as b:
+with open(f"{DATA_DIR}bytes_received.pkl", 'rb') as b:
     recieved=pickle.load(b)
 bytes_recieved=random.choice(recieved)
 print(bytes_recieved)
 
-with open('data/bytes_sent.pkl', 'rb') as c:
+with open(f"{DATA_DIR}bytes_sent.pkl", 'rb') as c:
     sent=pickle.load(c)
 bytes_sent=random.choice(sent)
 print(bytes_sent)
 
-with open('data/time_between_bursts.csv', 'r') as d:
+with open(f"{DATA_DIR}time_between_bursts.csv", 'r') as d:
     reader=csv.reader(d)
     rows = [row for row in reader]
     random_row = random.choice(rows)
