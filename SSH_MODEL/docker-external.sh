@@ -59,7 +59,7 @@ do
 
 
     # devices=$(( $RANDOM % $max_devices + 4 ))
-    devices=$(shuf -i 2-$max_devices -n 1)
+    devices=$(shuf -i 3-$max_devices -n 1)
 
     # echos current round into round.txt for uniform variable useage
     echo $round > round.txt

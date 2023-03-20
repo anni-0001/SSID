@@ -5,12 +5,19 @@ import subprocess
 # import scapy
 RT_DIR="/home/ubuntu"
 DATA_DIR="/home/ubuntu/purple/data/"
+# DATA_DIR="data/"
 
 # Load the pkl file
 with open(f"{DATA_DIR}bursts_total.pkl", 'rb') as a:
     bursts = pickle.load(a)
 # Sample a random data point
-burst_total = random.choice(bursts)
+# Filter data to select values above 3
+filtered_data = [value for value in bursts if value > 3]
+
+# Pick a random value from the filtered data
+burst_total = random.choice(filtered_data)
+
+# burst_total = random.choice(bursts)
 print(burst_total)
 
 with open(f"{DATA_DIR}bytes_received.pkl", 'rb') as b:

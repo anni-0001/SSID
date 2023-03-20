@@ -84,17 +84,25 @@ echo "bytes_recieved: $bytes_recieved"
 echo "bytes_send: $bytes_send"
 echo "burst_sleep: $burst_sleep"
 
-s_attacker=""
+sleep 6
+s_attacker=" "
 
 # creating arbitrary attacker send string
 for ((z=1; z<=bytes_send-19; z ++)); do
     s_attacker+="x"
 done
 
+echo "Attacker string: $s_attacker"
+sleep 5
+
 for((b=1; b <=burst_total; b++)); do
     # put into tmux send keys:
-    tmux send-keys -t mySession.1 'n=$bytes_recieved; a; echo $s_attacker 2>/dev/null' Enter
-    sleep $burst_sleep
+    # tmux send-keys -t mySession.1 'n=$bytes_recieved; a; echo $s_attacker 2>/dev/null' Enter
+    tmux send-keys -t mySession.1 'n=$bytes_recieved; a; echo $s_attacker' Enter
+    # echo "$s_attacker >> $RT_DIR/purple/history.txt"
+
+    # sleep $burst_sleep
+    tmux send-keys -t mySession.1 "sleep $burst_sleep" Enter
 
 done
 

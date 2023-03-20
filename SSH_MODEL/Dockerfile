@@ -1,7 +1,7 @@
 # ubuntu Dockerfile
 FROM ubuntu
 
-RUN apt update && apt install openssh-server sudo iproute2 python3 coreutils sshpass tcpdump vim tmux tmuxinator netcat pip docker net-tools -y
+RUN apt update && apt install openssh-server sudo iproute2 python3 acct coreutils sshpass tcpdump vim tmux tmuxinator netcat pip docker net-tools -y
 RUN pip install paramiko
 
 # ---------user configuration
@@ -37,6 +37,9 @@ RUN chmod +x /opt/docker-internal.sh
 # COPY /tcpdump/ /tmp/tcpdump
 # RUN chmod -R 777 /purple/
 
+
+# --------psacct configurations
+RUN service acct restart
 
 # commands to build containers:
 # sudo docker-compose up --build
