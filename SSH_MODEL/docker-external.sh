@@ -44,7 +44,7 @@ echo ""
 echo "CONFIGURATIONS"
 echo "Rounds: $TOTAL_ROUNDS"
 echo "SCAN_TIME: $SCAN_TIME"
-echo "Device Number Range: 2 - $max_devices"
+echo "Device Number Range: 3 - $max_devices"
 echo ""
 sleep 5
 

@@ -45,3 +45,8 @@ else
 fi
 
 
+# sort pickle file data by what is above 1
+    # look at data
+
+# make netem super high delay & look at network traffic
+# start crawl 10k - sample for friday

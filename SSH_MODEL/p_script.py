@@ -2,7 +2,7 @@ import random
 import pickle
 import csv
 import subprocess
-# import scapy
+# import scapy.all
 RT_DIR="/home/ubuntu"
 DATA_DIR="/home/ubuntu/purple/data/"
 # DATA_DIR="data/"
@@ -38,7 +38,13 @@ with open(f"{DATA_DIR}time_between_bursts.csv", 'r') as d:
     # random_row.strip()
 print(time_between_bursts)
 
-
+with open(f"{DATA_DIR}time_between_bursts.pkl", 'rb') as e:
+    reader=pickle.load(e)
+    # rows = [row for row in reader]
+    random_row = random.choice(reader)
+#     # time_between_bursts=random_row[0]
+#     # random_row.strip()
+print(random_row)
 # for i in range(burst_total):
 
 
