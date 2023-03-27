@@ -4,8 +4,8 @@ import csv
 import subprocess
 # import scapy.all
 RT_DIR="/home/ubuntu"
-DATA_DIR="/home/ubuntu/purple/data/"
-# DATA_DIR="data/"
+# DATA_DIR="/home/ubuntu/purple/data/"
+DATA_DIR="data/"
 
 # Load the pkl file
 with open(f"{DATA_DIR}bursts_total.pkl", 'rb') as a:
@@ -30,21 +30,34 @@ with open(f"{DATA_DIR}bytes_sent.pkl", 'rb') as c:
 bytes_sent=random.choice(sent)
 print(bytes_sent)
 
-with open(f"{DATA_DIR}time_between_bursts.csv", 'r') as d:
-    reader=csv.reader(d)
-    rows = [row for row in reader]
-    random_row = random.choice(rows)
-    time_between_bursts=random_row[0]
-    # random_row.strip()
-print(time_between_bursts)
+# with open(f"{DATA_DIR}time_between_bursts.csv", 'r') as d:
+#     reader=csv.reader(d)
+#     rows = [row for row in reader]
+#     random_row = random.choice(rows)
+#     time_between_bursts=random_row[0]
+#     # random_row.strip()
+# print(time_between_bursts)
 
 with open(f"{DATA_DIR}time_between_bursts.pkl", 'rb') as e:
-    reader=pickle.load(e)
+    data=pickle.load(e)
+sorted_vals= sorted(data, reverse=False)
     # rows = [row for row in reader]
-    random_row = random.choice(reader)
+
+# for val in sorted_vals:
+#     print(val)
+
+counter=0
+# for( i=0; i <)
+for val in sorted_vals:
+    if val < 1:
+        counter+=1
+
+print(counter)
+
+    # random_row = random.choice(reader)
 #     # time_between_bursts=random_row[0]
 #     # random_row.strip()
-print(random_row)
+# print(random_row)
 # for i in range(burst_total):
 
 
