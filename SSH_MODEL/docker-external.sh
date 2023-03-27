@@ -2,8 +2,10 @@
 TOTAL_ROUNDS=2 
 SCAN_TIME=300
 devices=4
+dir=$(pwd)
+
 # TCP_DIR=/home/amc1100/Documents/research/SSID/SSH_MODEL/tcpdump
-TCP_DIR=/Users/annika/Documents/SSID/SSH_MODEL/tcpdump
+TCP_DIR=${dir}/tcpdump
 VERSION_DIR=SSH_MODEL
 
 round=1
@@ -105,3 +107,18 @@ sleep 5
 finalround=$(cat round.txt)
 
 echo " [*] docker-external.sh finished -- $finalround experiments complete"
+
+
+# MEETING 3/27
+# net em on WAN network - make new dockerfile to generate proxy hosts in WAN NETWORK
+# latency at beginning devices in WAN to LAN: net em 50 - 150 ms
+    # check vpn data for distance
+# all same ips 
+
+# if all connections are short - look for larger patterns
+# model attack as bigger picture behavior 
+    #  create stepping stone
+    # create conection to final node
+    # send accross all proxies
+    # disconnecting and reconnecting
+

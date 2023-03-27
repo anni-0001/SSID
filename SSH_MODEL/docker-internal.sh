@@ -28,7 +28,7 @@ service ssh restart
 # ln -s /usr/bin/tcpdump /usr/sbin/tcpdump
 
 # netem starting with a random dely between 15 and 35
-tc qdisc add dev eth0 root handle 1:0 netem delay 25ms 10ms
+# tc qdisc add dev eth0 root handle 1:0 netem delay 25ms 10ms
 # sudo chmod 777 -R /purple/tcpdump/
 
 if [ "$HOSTNAME" == "dev1" ]; then
@@ -50,3 +50,5 @@ fi
 
 # make netem super high delay & look at network traffic
 # start crawl 10k - sample for friday
+
+

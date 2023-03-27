@@ -2,7 +2,7 @@
 FROM ubuntu
 
 RUN apt update && apt install openssh-server sudo iproute2 python3 acct coreutils sshpass tcpdump vim tmux tmuxinator netcat pip docker net-tools -y
-RUN pip install paramiko
+RUN pip install paramiko scapy
 
 # ---------user configuration
 RUN echo 'root:password' | chpasswd
