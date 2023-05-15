@@ -1,0 +1,80 @@
+version: '3'
+services:
+  dev4:
+    container_name: dev4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2204:22"
+    hostname: dev4
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      ssid_net:
+        ipv4_address: 172.10.10.104
+          
+  dev3:
+    container_name: dev3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2203:22"
+    hostname: dev3
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      ssid_net:
+        ipv4_address: 172.10.10.103
+          
+  dev2:
+    container_name: dev2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2202:22"
+    hostname: dev2
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      ssid_net:
+        ipv4_address: 172.10.10.102
+          
+  dev1:
+    container_name: dev1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2201:22"
+    hostname: dev1
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      ssid_net:
+        ipv4_address: 172.10.10.101
+          
+networks:
+  ssid_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.10.10.0/24

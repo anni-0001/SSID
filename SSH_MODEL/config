@@ -1,0 +1,29 @@
+ 
+Host dev1
+Hostname 172.10.10.101
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 
+Host dev2
+Hostname 172.10.10.102
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 
+Host dev3
+Hostname 172.10.10.103
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 
+Host dev4
+Hostname 172.10.10.104
+StrictHostKeyChecking no
+IdentityFile ~/.ssh/id_rsa
+UserKnownHostsFile=/dev/null
+User root
+ 

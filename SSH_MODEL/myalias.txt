@@ -1,0 +1,2 @@
+
+alias a="for ((c=1; c<=n-1; c ++)); do echo -n 1; done; echo hi"

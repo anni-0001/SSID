@@ -1,0 +1,4 @@
+command,send-low,send-high,recieve-low,recieve-high
+ls ,4,10,4,10
+pwd ,2,15,2,15
+whoami,5,20,3,25
