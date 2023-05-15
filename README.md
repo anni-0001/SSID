@@ -5,12 +5,12 @@ This project is an improvement of previous works on Stepping Stone Intrusion Det
 This project can create an unlimited size data set on SSID to be using for machine learning applications.
 
 # Triggering Structure
-(1) docker-external.sh --> 
-(2) compose-bash.sh & ssh-config.sh --> 
-(3) docker-compose.yml --> 
-(4) docker-internal.sh --> 
-(5) tmux.sh
---> = triggers script
+(1) docker-external.sh -->   
+(2) compose-bash.sh & ssh-config.sh -->  
+(3) docker-compose.yml -->  
+(4) docker-internal.sh -->  
+(5) tmux.sh  
+--> = triggers script  
 
 # Files & Uses
 docker-external.sh : 
@@ -33,14 +33,14 @@ docker-internal.sh
 requiements:
 * docker daemon running
 * venv environment set up with scapy installed
-
+* change value in /SSH_MODEL/.env to YOUR repo dir
 
 terminal:
 $ cd SSH_MODEL  
 $ chmod 700 docker-external.sh  
 $ sudo ./docker-external.sh  
 ** enter prompt values**
-
+program takes care of everything else!
 
 # Available Models
 
@@ -56,19 +56,24 @@ Future:
 
 # Documentation
 
-To create network:
-    docker network create SSID1
-
-To build experiments run: SSH_MODEL/docker-external.sh
-    - provide scantime, devices, and experiment rounds
-    - auto populates docker-compose, docker-internal.sh, ssh config, and tmux.sh
 
 
-# General Commands
+# Management Commands
 
-To access any container within instance:
+To see currently running containers:
+docker ps
+
+To see all containers:
+docker ps -a
+
+To enter any container within instance:
     docker exec -it <container ID> bash
 
 To rebuild all instances with updated Dockerfile: 
     docker-compose up --build
 
+To stop docker containers:
+docker stop <container ID>
+
+To remove docker containers:
+docker rm <container ID>
