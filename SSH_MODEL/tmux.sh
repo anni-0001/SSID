@@ -84,7 +84,7 @@ echo "bytes_recieved: $bytes_recieved"
 echo "bytes_send: $bytes_send"
 echo "burst_sleep: $burst_sleep"
 
-sleep 6
+sleep 2
 s_attacker=" "
 
 # creating arbitrary attacker send string
@@ -93,7 +93,7 @@ for ((z=1; z<=bytes_send-19; z ++)); do
 done
 
 echo "Attacker string: $s_attacker"
-sleep 5
+# sleep 1
 
 for((b=1; b <=burst_total; b++)); do
     # put into tmux send keys:

@@ -7,8 +7,9 @@ z=$(($1))
 # echo $z
 experiment_num=$2
 scan_time=$3
-start_ip=2
-
+start_ip=1
+dev_num=$(cat dev-num.txt)
+echo $dev_num
 # if [ $4 ]; then
 #     SHARED_VOLUME=$4
 # else
@@ -37,46 +38,41 @@ write_entry () {
     echo "    hostname: dev$1" >> $OUT
     echo "    volumes:" >> $OUT
     echo "      - \${SHARED_VOLUME_HOME}:/home/ubuntu/purple/" >> $OUT
-    echo "    command: /opt/docker-internal.sh \$${SCAN_TIME}" >> $OUT
+    echo "    command: /opt/docker-internal.sh" >> $OUT
     if [ $2 ]; then
         echo "    depends_on:" >> $OUT
         echo "      - dev$2" >> $OUT
     fi 
     echo "    stdin_open: true" >> $OUT
     echo "    tty: true" >> $OUT
-    echo "              " >> $OUT
 
     echo "    privileged: true" >> $OUT
     echo "    networks:" >> $OUT
-    echo "      SSID1:" >> $OUT
-    echo "        ipv4_address: 10.10.5.$start_ip" >>$OUT
-    # echo "    networks: " >> $OUT
-    # echo "      SSID1:" >> $OUT
-    # echo "        ipv4_address: 10.10.5.$start_ip" >> $OUT
-    # start_ip=$((start_ip +1))
+    echo "      ssid_net:" >> $OUT
+    ip_addr=172.10.10.10$dev_num
+    echo "        ipv4_address: $ip_addr" >>$OUT
+    echo "          " >>$OUT
 
 
 }
 
 # Write target (victim) host w/ no dependency
-write_entry $z
+write_entry $dev_num
 # Write Stepping-stone hosts & attacker (all depending on prior host)
-for ((i=z-1; i>0; i--))
-do
-    start_ip=$((start_ip +1))
-    j=$(($i+1))
-    write_entry $i $j
-    
+
+for ((i=dev_num-1; i>0; i--))
+do 
+
+    # echo $dev_num
+    dev_num=$((dev_num -1))
+    write_entry $dev_num
+
+
 done
-# echo "networks:" >> $OUT
-# echo "  default:" >> $OUT
-# echo "      name: SSID1" >> $OUT
-# echo "      external: true" >> $OUT
-# echo "        ipam:" >> $OUT
 
 echo "networks:" >> $OUT
-echo "  SSID1:" >>$OUT
+echo "  ssid_net:" >>$OUT
 echo "    driver: bridge" >>$OUT
 echo "    ipam:" >> $OUT
 echo "      config:" >> $OUT
-echo "        - subnet: 10.10.5.0/24" >> $OUT
+echo "        - subnet: 172.10.10.0/24" >> $OUT

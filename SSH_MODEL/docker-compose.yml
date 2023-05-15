@@ -1,5 +1,23 @@
 version: '3'
 services:
+  dev5:
+    container_name: dev5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2205:22"
+    hostname: dev5
+    volumes:
+      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
+    command: /opt/docker-internal.sh
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      ssid_net:
+        ipv4_address: 172.10.10.105
+          
   dev4:
     container_name: dev4
     build:
@@ -10,14 +28,14 @@ services:
     hostname: dev4
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
-    command: /opt/docker-internal.sh $
+    command: /opt/docker-internal.sh
     stdin_open: true
     tty: true
-              
     privileged: true
     networks:
-      SSID1:
-        ipv4_address: 10.10.5.2
+      ssid_net:
+        ipv4_address: 172.10.10.104
+          
   dev3:
     container_name: dev3
     build:
@@ -28,16 +46,14 @@ services:
     hostname: dev3
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
-    command: /opt/docker-internal.sh $
-    depends_on:
-      - dev4
+    command: /opt/docker-internal.sh
     stdin_open: true
     tty: true
-              
     privileged: true
     networks:
-      SSID1:
-        ipv4_address: 10.10.5.3
+      ssid_net:
+        ipv4_address: 172.10.10.103
+          
   dev2:
     container_name: dev2
     build:
@@ -48,16 +64,14 @@ services:
     hostname: dev2
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
-    command: /opt/docker-internal.sh $
-    depends_on:
-      - dev3
+    command: /opt/docker-internal.sh
     stdin_open: true
     tty: true
-              
     privileged: true
     networks:
-      SSID1:
-        ipv4_address: 10.10.5.4
+      ssid_net:
+        ipv4_address: 172.10.10.102
+          
   dev1:
     container_name: dev1
     build:
@@ -68,19 +82,17 @@ services:
     hostname: dev1
     volumes:
       - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
-    command: /opt/docker-internal.sh $
-    depends_on:
-      - dev2
+    command: /opt/docker-internal.sh
     stdin_open: true
     tty: true
-              
     privileged: true
     networks:
-      SSID1:
-        ipv4_address: 10.10.5.5
+      ssid_net:
+        ipv4_address: 172.10.10.101
+          
 networks:
-  SSID1:
+  ssid_net:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.10.5.0/24
+        - subnet: 172.10.10.0/24

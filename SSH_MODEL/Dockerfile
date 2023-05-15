@@ -8,6 +8,9 @@ RUN pip install paramiko scapy
 RUN echo 'root:password' | chpasswd
 RUN passwd -d root
 
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
 # --------ssh session configuration
 EXPOSE 22
 RUN service ssh start
@@ -25,6 +28,9 @@ RUN service ssh restart
 # SHELL ["/bin/bash", "-c"]
 # COPY tmux.sh /usr/local/sbin/
 # RUN chmod 700 /usr/local/sbin/tmux.sh
+
+
+
 
 # --------docker-external.sh 
 COPY tmux.sh /opt/
