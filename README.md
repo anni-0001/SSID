@@ -4,11 +4,29 @@ This project is an improvement of previous works on Stepping Stone Intrusion Det
 
 This project can create an unlimited size data set on SSID to be using for machine learning applications.
 
-# Structure
-docker-external.sh --> compose-bash.sh & ssh-config.sh --> docker-compose.yml --> docker-internal.sh --> tmux.sh
+# Triggering Structure
+(1) docker-external.sh --> 
+(2) compose-bash.sh & ssh-config.sh --> 
+(3) docker-compose.yml --> 
+(4) docker-internal.sh --> 
+(5) tmux.sh
 --> = triggers script
 
-* 
+# Files & Uses
+docker-external.sh : 
+* takes user input for devices, rounds, and scan time
+* Manages experiment loop and docker container management
+* sets values in round.txt, dev-num.txt, scan_time.txt and proxy.txt
+
+compose-bash.sh : 
+* generates a dynamic docker-compose.yml based on configured options for each experiment
+
+ssh-config.sh
+* generates dynamic ssh config file for each docker container for each experiment
+
+docker-internal.sh
+* manages the internal commands within docker containers
+* sets up scans using tcpdump, first device always attacker container
 
 # Available Models
 
