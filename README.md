@@ -4,7 +4,23 @@ This project is an improvement of previous works on Stepping Stone Intrusion Det
 
 This project can create an unlimited size data set on SSID to be using for machine learning applications.
 
-# Triggering Structure
+# Documentation
+
+## Running
+
+requirements:
+* docker daemon running
+* venv environment set up with scapy installed
+* change value in /SSH_MODEL/.env to YOUR repo dir
+
+terminal:
+$ cd SSH_MODEL  
+$ chmod 700 docker-external.sh  
+$ sudo ./docker-external.sh  
+** enter prompt values**
+program takes care of everything else!
+
+## Triggering Structure
 (1) docker-external.sh -->   
 (2) compose-bash.sh & ssh-config.sh -->  
 (3) docker-compose.yml -->  
@@ -12,7 +28,8 @@ This project can create an unlimited size data set on SSID to be using for machi
 (5) tmux.sh  
 --> = triggers script  
 
-# Files & Uses
+
+## Files & Uses
 docker-external.sh : 
 * takes user input for devices, rounds, and scan time
 * Manages experiment loop and docker container management
@@ -28,21 +45,9 @@ docker-internal.sh
 * manages the internal commands within docker containers
 * sets up scans using tcpdump, first device always attacker container
 
-## Runing
 
-requiements:
-* docker daemon running
-* venv environment set up with scapy installed
-* change value in /SSH_MODEL/.env to YOUR repo dir
 
-terminal:
-$ cd SSH_MODEL  
-$ chmod 700 docker-external.sh  
-$ sudo ./docker-external.sh  
-** enter prompt values**
-program takes care of everything else!
-
-# Available Models
+## Available Models
 
 - SSH Tunnel: SSH_MODEL
     * purely SSH tunnel
@@ -52,10 +57,6 @@ program takes care of everything else!
 Future:
     - HTTP Tunnel (netcat/socat)
     - FTP Tunnel
-
-
-# Documentation
-
 
 
 # Management Commands
