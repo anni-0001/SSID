@@ -80,6 +80,7 @@ do
     echo $devices > dev-num.txt
 
     echo $SCAN_TIME > scan_time.txt
+    echo "tester"
 
 
     # creates automated docker-compose.yml
