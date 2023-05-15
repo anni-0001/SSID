@@ -45,7 +45,10 @@ docker-internal.sh
 * manages the internal commands within docker containers
 * sets up scans using tcpdump, first device always attacker container
 
-
+tmux.sh
+* internal commands for container 1 (attacker)
+* runs tmux session to run command equilvent bytes sequences through ssh tunnel across stepping stones
+* triggers aliases on final stepping stone which triggers response behavior
 
 ## Available Models
 
@@ -59,7 +62,7 @@ Future:
     - FTP Tunnel
 
 
-# Management Commands
+## Management Commands
 
 To see currently running containers:
 docker ps
