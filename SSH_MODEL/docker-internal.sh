@@ -1,19 +1,10 @@
 #!/bin/bash 
 
 # hard-coded params
-FALL_BACK_SCAN_TIME=30
 RT_DIR="/home/ubuntu"
 TCP_DIR="/purple/tcpdump"
 experiment_num=$(cat $RT_DIR/purple/round.txt)
-# prixies
-
-if [ $2 ]
-then
-    scan_time=$2
-else
-    scan_time=$FALL_BACK_SCAN_TIME   # default scantime
-fi
-
+scan_time=$(cat $RT_DIR/purple/scan_time.txt)
 dev_num=$(cat $RT_DIR/purple/dev-num.txt)
 proxy=$(cat $RT_DIR/purple/proxy.txt)
 # echo $dev_num

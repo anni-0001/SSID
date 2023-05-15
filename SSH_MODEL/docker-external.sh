@@ -16,7 +16,7 @@ if [ $# -eq 0 ]; then
 
     echo " "
     # read -p "Enter min number of devices: " min_devices
-    read -p "Enter max number of devices: " max_devices
+    read -p "Enter max number of non-proxy devices: " max_devices
     read -p "Enter scan duration in seconds: " SCAN_TIME
     read -p "Enter experiment rounds: " TOTAL_ROUNDS
 else 
@@ -64,7 +64,7 @@ do
     # proxy=$((RANDOM % 3 + 2))
     proxy=1
     # proxy=3
-    echo $proxy >> proxy.txt
+    echo $proxy > proxy.txt
 
 
     hosts=$(shuf -i 3-$max_devices -n 1)
@@ -78,6 +78,8 @@ do
     devices=$((hosts+proxy))
     # echo $devices
     echo $devices > dev-num.txt
+
+    echo $SCAN_TIME > scan_time.txt
 
 
     # creates automated docker-compose.yml
