@@ -28,6 +28,20 @@ docker-internal.sh
 * manages the internal commands within docker containers
 * sets up scans using tcpdump, first device always attacker container
 
+## Runing
+
+requiements:
+* docker daemon running
+* venv environment set up with scapy installed
+
+
+terminal:
+cd SSH_MODEL
+chmod 700 docker-external.sh
+sudo ./docker-external.sh
+** enter prompt values**
+
+
 # Available Models
 
 - SSH Tunnel: SSH_MODEL
