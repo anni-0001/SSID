@@ -36,9 +36,9 @@ requiements:
 
 
 terminal:
-cd SSH_MODEL
-chmod 700 docker-external.sh
-sudo ./docker-external.sh
+$ cd SSH_MODEL  
+$ chmod 700 docker-external.sh  
+$ sudo ./docker-external.sh  
 ** enter prompt values**
 
 
