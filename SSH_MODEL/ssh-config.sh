@@ -1,22 +1,19 @@
 #!/bin/bash
 
+# creates the  config file for ssh session & key management
+
+
+# establishing variables
 devices=$1
 echo $devices
 sshfile=config
-# devices=$
-# proxy=$(ca,t proxy.txt)
-# hosts=$(cat dev-num.txt)
-
-# start_ip=172.20.0.2
-# start_ip=$((hosts+proxy))
 devices=$(cat dev-num.txt)
 
 start_ip=1
 
-# echo $start_ip
-# start_ip=2
+
 # need to reserve 172.18.0.0,1 in config ips ssh
-# 
+
 echo " " > $sshfile
 for((i=1; i<=devices; i++)); do
     # reserves 172.18.0.0,1 in config ips ssh

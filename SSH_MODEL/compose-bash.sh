@@ -1,10 +1,10 @@
 #!/bin/bash
 
+# creates dynamic docker-compose.yml for each experiment
+
 # initalize variables
-# z=$(($1+2))
+
 z=$(($1))
-# z=$1
-# echo $z
 experiment_num=$2
 scan_time=$3
 start_ip=1
@@ -25,6 +25,7 @@ OUT=docker-compose.yml
 echo "version: '3'" > $OUT
 echo "services:" >> $OUT
 
+# fills out docker-compose.yml for each device
 write_entry () {
     echo "  dev$1:" >> $OUT
     echo "    container_name: dev$1" >> $OUT
@@ -58,6 +59,7 @@ write_entry () {
 
 # Write target (victim) host w/ no dependency
 write_entry $dev_num
+
 # Write Stepping-stone hosts & attacker (all depending on prior host)
 
 for ((i=dev_num-1; i>0; i--))

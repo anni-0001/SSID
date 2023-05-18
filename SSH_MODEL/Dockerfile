@@ -24,12 +24,6 @@ COPY config /root/.ssh/
 RUN chmod 600 ~/.ssh/config
 RUN service ssh restart
 
-# -------tmux session configuration
-# SHELL ["/bin/bash", "-c"]
-# COPY tmux.sh /usr/local/sbin/
-# RUN chmod 700 /usr/local/sbin/tmux.sh
-
-
 
 
 # --------docker-external.sh 

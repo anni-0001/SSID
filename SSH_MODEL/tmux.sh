@@ -18,16 +18,10 @@ dev_num=$(cat $RT_DIR/purple/dev-num.txt)
 
 service ssh restart
 
-# Accessing aliases to use in script
+# Accessing aliases to use in script w/o interactive
 cat ~/.bashrc > myalias.txt
 source myalias.txt 
 shopt -s expand_aliases
-
-# n = n, number of “commands”/bursts of traffic (e.g., number of times to loop)
-# attacker_send = s, number of characters to send by the attacker (for the current command)
-# victim_send = r, number of characters to send by the victim machine (for the current command)
-# sleep_cmd = p, time to sleep before starting the next command in the loop
-
 
 
 devices=$(cat $RT_DIR/purple/dev-num.txt)
@@ -42,12 +36,9 @@ tmux split-window -h
 tmux send-keys -t mySession.0 "tcpdump -i eth0 -U -w $RT_DIR/purple/tcpdump/$experiment_num/dev1.pcap" Enter
 echo " [*] Starting pcap capture..."
 
-# sleep 5
 
 # initiating ssh tunnel
-# tmux send-keys -t mySession.1 "ssh -A -t -p $port root@dev2 ssh -A -t -p $port root@dev3 ssh -A -p $port root@dev4" Enter
 echo " [*] Building tunnel..."
-# sleep 10
 
 sshtunnel=" "
 
@@ -93,7 +84,7 @@ for ((z=1; z<=bytes_send-19; z ++)); do
 done
 
 echo "Attacker string: $s_attacker"
-# sleep 1
+
 
 for((b=1; b <=burst_total; b++)); do
     # put into tmux send keys:
@@ -106,28 +97,20 @@ for((b=1; b <=burst_total; b++)); do
 
 done
 
-# seeing if commands are running
-echo "$HOSTNAME">> $RT_DIR/purple/history.txt
-history >> $RT_DIR/purple/history.txt
-# # Call the Python script and capture the output into a Bash array
-# output=($(python3 p_script.py))
 
-
-
-
-# add latency
-
-# reverse shell, file exfil, uneven send & recieves
-# look at samples, spin up crawler on multi machine
-
-
-
-
+# terminating tmux session
 
 # echo " [*] reattatching to session tmux"
 tmux a -t mySession
 echo " [*] killing tmux session"
 tmux kill-session -t mySession
+
+# future potential additions:
+# add latency
+# reverse shell, file exfil, uneven send & recieves
+# look at samples, spin up crawler on multi machine
+
+
 
 # # Set the working directory for the right pane
 # tmux send-keys -t mysession:0.1 'cd /path/to/right/pane' Enter

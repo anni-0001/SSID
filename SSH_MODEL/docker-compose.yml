@@ -1,23 +1,5 @@
 version: '3'
 services:
-  dev5:
-    container_name: dev5
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "2205:22"
-    hostname: dev5
-    volumes:
-      - ${SHARED_VOLUME_HOME}:/home/ubuntu/purple/
-    command: /opt/docker-internal.sh
-    stdin_open: true
-    tty: true
-    privileged: true
-    networks:
-      ssid_net:
-        ipv4_address: 172.10.10.105
-          
   dev4:
     container_name: dev4
     build:
